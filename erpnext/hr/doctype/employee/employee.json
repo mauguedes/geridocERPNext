@@ -117,7 +117,6 @@
   {
    "fieldname": "employee",
    "fieldtype": "Data",
-   "hidden": 1,
    "label": "Employee",
    "no_copy": 1,
    "print_hide": 1,
@@ -782,7 +781,7 @@
  "icon": "fa fa-user",
  "idx": 24,
  "image_field": "image",
- "modified": "2020-01-09 04:23:55.611366",
+ "modified": "2020-04-21 12:22:49.270229",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Employee",

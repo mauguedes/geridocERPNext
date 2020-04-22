@@ -1,5 +1,4 @@
 {
- "actions": [],
  "allow_copy": 1,
  "allow_import": 1,
  "allow_rename": 1,
@@ -15,6 +14,7 @@
   "inpatient_status",
   "inpatient_record",
   "naming_series",
+  "niss",
   "patient_name",
   "sex",
   "blood_group",
@@ -51,7 +51,14 @@
   "more_info",
   "patient_details",
   "ac_sb",
-  "default_currency"
+  "default_currency",
+  "address_contacts",
+  "address",
+  "city",
+  "postal_code",
+  "column_break1",
+  "alt_contact1",
+  "alt_contact2"
  ],
  "fields": [
   {
@@ -168,7 +175,8 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "label": "Mobile"
+   "label": "Mobile",
+   "reqd": 1
   },
   {
    "bold": 1,
@@ -331,13 +339,63 @@
    "label": "Default Currency",
    "options": "Currency",
    "print_hide": 1
+  },
+  {
+   "fieldname": "niss",
+   "fieldtype": "Data",
+   "label": "NISS",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "address_contacts",
+   "fieldtype": "Section Break",
+   "label": " Address and Contacts",
+   "options": "fa fa-map-marker"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "address",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Address"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "alt_contact1",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Alternate Contact 1"
+  },
+  {
+   "fieldname": "alt_contact2",
+   "fieldtype": "Data",
+   "label": "Alternate Contact 2"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "city",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "City"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "postal_code",
+   "fieldtype": "Data",
+   "label": "Postal Code"
+  },
+  {
+   "fieldname": "column_break1",
+   "fieldtype": "Column Break"
   }
  ],
  "icon": "fa fa-user",
  "image_field": "image",
- "links": [],
  "max_attachments": 50,
- "modified": "2020-01-29 11:22:40.698125",
+ "modified": "2020-04-22 16:44:34.766157",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Patient",
@@ -400,5 +458,7 @@
  "sort_field": "modified",
  "sort_order": "ASC",
  "title_field": "patient_name",
- "track_changes": 1
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
 }
