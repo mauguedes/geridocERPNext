@@ -10,8 +10,15 @@ from frappe.utils import cint, cstr, getdate, flt
 import dateutil
 from frappe.model.naming import set_name_by_naming_series
 from erpnext.healthcare.doctype.healthcare_settings.healthcare_settings import get_receivable_account,get_income_account,send_registration_sms
+from frappe.contacts.address_and_contact import load_address_and_contact, delete_contact_and_address
 
 class Patient(Document):
+	def onload(self):
+		load_address_and_contact(self)
+
+	def on_trash(self):
+		delete_contact_and_address('Patient', self.name)
+
 	def after_insert(self):
 		if(frappe.db.get_value("Healthcare Settings", None, "manage_customer") == '1' and not self.customer):
 			create_customer(self)

@@ -37,6 +37,9 @@ frappe.ui.form.on('Patient', {
 				btn_create_encounter(frm);
 			}, "Create");
 		}
+		if(!frm.is_new()) {
+			frappe.contacts.render_address_and_contact(frm);
+		}
 	},
 	onload: function (frm) {
 		if(!frm.doc.dob){

@@ -52,10 +52,8 @@
   "patient_details",
   "ac_sb",
   "default_currency",
-  "address_contacts",
-  "address",
-  "city",
-  "postal_code",
+  "contacts_and_address",
+  "address_html",
   "column_break1",
   "alt_contact1",
   "alt_contact2"
@@ -348,20 +346,6 @@
    "unique": 1
   },
   {
-   "fieldname": "address_contacts",
-   "fieldtype": "Section Break",
-   "label": " Address and Contacts",
-   "options": "fa fa-map-marker"
-  },
-  {
-   "allow_in_quick_entry": 1,
-   "fieldname": "address",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
-   "label": "Address"
-  },
-  {
    "allow_in_quick_entry": 1,
    "fieldname": "alt_contact1",
    "fieldtype": "Data",
@@ -374,28 +358,28 @@
    "label": "Alternate Contact 2"
   },
   {
-   "allow_in_quick_entry": 1,
-   "fieldname": "city",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
-   "label": "City"
-  },
-  {
-   "allow_in_quick_entry": 1,
-   "fieldname": "postal_code",
-   "fieldtype": "Data",
-   "label": "Postal Code"
-  },
-  {
    "fieldname": "column_break1",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "address_html",
+   "fieldtype": "HTML",
+   "label": "Address HTML",
+   "no_copy": 1,
+   "print_hide": 1,
+   "report_hide": 1
+  },
+  {
+   "fieldname": "contacts_and_address",
+   "fieldtype": "Section Break",
+   "label": "Contacts and Address",
+   "options": "fa fa-map-marker"
   }
  ],
  "icon": "fa fa-user",
  "image_field": "image",
  "max_attachments": 50,
- "modified": "2020-04-22 16:44:34.766157",
+ "modified": "2020-04-23 12:26:10.119161",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Patient",

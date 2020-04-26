@@ -65,9 +65,12 @@
    "set_only_once": 1
   },
   {
+   "allow_in_quick_entry": 1,
    "fieldname": "appointment_type",
    "fieldtype": "Link",
    "ignore_user_permissions": 1,
+   "in_global_search": 1,
+   "in_list_view": 1,
    "label": "Appointment Type",
    "options": "Appointment Type",
    "set_only_once": 1
@@ -137,6 +140,7 @@
    "fieldname": "practitioner",
    "fieldtype": "Link",
    "ignore_user_permissions": 1,
+   "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Healthcare Practitioner",
    "options": "Healthcare Practitioner",
@@ -285,8 +289,8 @@
    "report_hide": 1
   }
  ],
- "modified": "2020-03-27 15:55:24.344945",
- "modified_by": "ruchamahabal2@gmail.com",
+ "modified": "2020-04-24 21:16:40.576248",
+ "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Patient Appointment",
  "owner": "Administrator",
