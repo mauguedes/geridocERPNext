@@ -127,3 +127,19 @@ def get_patient_detail(patient):
 	if vital_sign:
 		details.update(vital_sign[0])
 	return details
+
+
+def query_condition_for_practitioner(arg):
+	if 'Healthcare Administrator' in frappe.get_roles(frappe.session.user):
+		return None
+	loaded_practitioners = frappe.get_all("Healthcare Practitioner", filters={"user_id":frappe.session.user},fields=["name"])
+	if len(loaded_practitioners) > 0 :
+		loaded_appointments = frappe.get_all("Patient Appointment", filters={"practitioner":loaded_practitioners[0].name},fields=["patient"])
+		if len(loaded_appointments) > 0 :
+			ids = []
+			for appointment in loaded_appointments:
+				if appointment.patient not in ids:
+					ids.append(appointment.patient)
+			query_params = ','.join("'{0}'".format(id) for id in ids)
+			return "(`tabPatient`.name in ({query_params}))".format(query_params=query_params)
+	return None

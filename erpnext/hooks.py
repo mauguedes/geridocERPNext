@@ -529,3 +529,8 @@ global_search_doctypes = {
 		{'doctype': 'Hotel Room Type', 'index': 4}
 	]
 }
+
+permission_query_conditions = {
+	"Patient Appointment": "erpnext.healthcare.doctype.patient_appointment.patient_appointment.query_condition_for_practitioner",
+	"Patient": "erpnext.healthcare.doctype.patient.patient.query_condition_for_practitioner",
+}
