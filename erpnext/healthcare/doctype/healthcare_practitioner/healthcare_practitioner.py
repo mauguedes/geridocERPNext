@@ -83,12 +83,13 @@ def get_practitioner_list(doctype, txt, searchfield, start, page_len, filters=No
 	return frappe.get_all("Healthcare Practitioner", fields = fields,
 		filters = filters, start=start, page_length=page_len, order_by="name, first_name", as_list=1)
 
-#def query_condition_for_practitioner(arg):
-#	if 'Healthcare Administrator' in frappe.get_roles(frappe.session.user):
-#		loaded_practitioners = frappe.get_all("Healthcare Practitioner", fields=["name"])
-#		if len(loaded_practitioners) > 0 :
-#			ids = []
-#			for practitioner in loaded_practitioners:
-#				ids.append(practitioner.name)
-#			query_params = ','.join("'{0}'".format(id) for id in ids)
-#			return "(`tabHealthcare Practitioner`.name in ({query_params}))".format(query_params=query_params)
+def query_condition_for_practitioner(arg):
+	if 'Healthcare Administrator' in frappe.get_roles(frappe.session.user):
+		loaded_practitioners = frappe.get_all("Healthcare Practitioner", fields=["name"])
+		if len(loaded_practitioners) > 0 :
+			ids = []
+			for practitioner in loaded_practitioners:
+				ids.append(practitioner.name)
+			query_params = ','.join("'{0}'".format(id) for id in ids)
+			return "(`tabHealthcare Practitioner`.name in ({query_params}))".format(query_params=query_params)
+	return None

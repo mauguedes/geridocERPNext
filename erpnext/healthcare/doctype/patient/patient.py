@@ -29,7 +29,16 @@ class Patient(Document):
 		self.reload()
 
 	def on_update(self):
+		# Update this patient appointments
 		self.add_as_website_user()
+		frappe.db.sql("""update `tabPatient Appointment`
+			set patient_name=%(patient_name)s, patient_sex=%(sex)s, patient_age=%(age)s
+			where patient=%(name)s""", {
+				'patient_name': self.patient_name,
+				'sex': self.sex,
+				'age': self.get_age(),
+				'name': self.name
+			})
 
 	def add_as_website_user(self):
 		if(self.email):

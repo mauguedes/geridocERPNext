@@ -183,6 +183,9 @@ def get_availability_data(date, practitioner):
 	:return: dict containing a list of available slots, list of appointments and time of appointments
 	"""
 
+	if 'Healthcare Administrator' not in frappe.get_roles(frappe.session.user):
+		return frappe.throw("No Permissions")
+
 	date = getdate(date)
 	weekday = date.strftime("%A")
 

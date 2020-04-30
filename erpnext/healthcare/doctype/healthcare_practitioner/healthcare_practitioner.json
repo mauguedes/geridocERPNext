@@ -95,9 +95,11 @@
    "fieldname": "department",
    "fieldtype": "Link",
    "ignore_user_permissions": 1,
+   "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Department",
-   "options": "Medical Department"
+   "options": "Medical Department",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_7",
@@ -238,7 +240,7 @@
   }
  ],
  "image_field": "image",
- "modified": "2020-04-23 13:04:52.559594",
+ "modified": "2020-04-29 10:43:16.804459",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Healthcare Practitioner",

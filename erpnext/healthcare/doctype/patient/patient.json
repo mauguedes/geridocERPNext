@@ -13,7 +13,7 @@
   "inpatient_status",
   "inpatient_record",
   "naming_series",
-  "niss",
+  "sns",
   "patient_name",
   "sex",
   "blood_group",
@@ -340,15 +340,6 @@
    "print_hide": 1
   },
   {
-   "fieldname": "niss",
-   "fieldtype": "Data",
-   "in_global_search": 1,
-   "in_list_view": 1,
-   "label": "NISS",
-   "reqd": 1,
-   "unique": 1
-  },
-  {
    "allow_in_quick_entry": 1,
    "fieldname": "alt_contact1",
    "fieldtype": "Data",
@@ -393,12 +384,21 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "City"
+  },
+  {
+   "fieldname": "sns",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "label": "SNS",
+   "reqd": 1,
+   "unique": 1
   }
  ],
  "icon": "fa fa-user",
  "image_field": "image",
  "max_attachments": 50,
- "modified": "2020-04-28 12:59:28.039262",
+ "modified": "2020-04-30 16:21:17.382672",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Patient",

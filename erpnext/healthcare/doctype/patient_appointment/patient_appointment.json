@@ -12,6 +12,7 @@
   "patient",
   "appointment_type",
   "duration",
+  "price",
   "column_break_1",
   "status",
   "procedure_template",
@@ -20,8 +21,10 @@
   "service_unit",
   "check_availability",
   "section_break_12",
-  "practitioner",
   "department",
+  "practitioner",
+  "first_name",
+  "last_name",
   "column_break_17",
   "appointment_date",
   "appointment_time",
@@ -73,6 +76,7 @@
    "in_list_view": 1,
    "label": "Appointment Type",
    "options": "Appointment Type",
+   "reqd": 1,
    "set_only_once": 1
   },
   {
@@ -140,7 +144,6 @@
    "fieldname": "practitioner",
    "fieldtype": "Link",
    "ignore_user_permissions": 1,
-   "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Healthcare Practitioner",
    "options": "Healthcare Practitioner",
@@ -157,6 +160,7 @@
    "in_standard_filter": 1,
    "label": "Department",
    "options": "Medical Department",
+   "reqd": 1,
    "search_index": 1
   },
   {
@@ -187,10 +191,11 @@
   {
    "fetch_from": "patient.patient_name",
    "fieldname": "patient_name",
-   "fieldtype": "Data",
+   "fieldtype": "Read Only",
    "in_global_search": 1,
    "in_list_view": 1,
    "label": "Patient Name",
+   "options": "Patient",
    "read_only": 1
   },
   {
@@ -287,9 +292,34 @@
    "label": "Reminded",
    "print_hide": 1,
    "report_hide": 1
+  },
+  {
+   "fieldname": "price",
+   "fieldtype": "Currency",
+   "label": "Price"
+  },
+  {
+   "fetch_from": "practitioner.first_name",
+   "fieldname": "first_name",
+   "fieldtype": "Data",
+   "ignore_user_permissions": 1,
+   "in_list_view": 1,
+   "label": "First Name",
+   "options": "Healthcare Practitioner",
+   "read_only": 1
+  },
+  {
+   "bold": 1,
+   "fetch_from": "practitioner.last_name",
+   "fieldname": "last_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Last Name",
+   "options": "Healthcare Practitioner",
+   "read_only": 1
   }
  ],
- "modified": "2020-04-27 17:24:08.468574",
+ "modified": "2020-04-30 15:03:25.148197",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Patient Appointment",
@@ -308,8 +338,6 @@
    "write": 1
   },
   {
-   "create": 1,
-   "delete": 1,
    "email": 1,
    "export": 1,
    "print": 1,
@@ -320,8 +348,6 @@
    "write": 1
   },
   {
-   "create": 1,
-   "delete": 1,
    "email": 1,
    "export": 1,
    "print": 1,
