@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 # Copyright (c) 2015, ESS LLP and contributors
 # For license information, please see license.txt
@@ -398,11 +399,15 @@ def get_procedure_prescribed(patient):
 	where ct.patient=%(patient)s and pp.parent=ct.name and pp.appointment_booked=0
 	order by ct.creation desc""", {"patient": patient})
 
-def query_condition_for_practitioner(arg):
+def query_condition_for_patient_appointment(arg):
 	if 'Healthcare Administrator' in frappe.get_roles(frappe.session.user):
 		return None
 	loaded_practitioners = frappe.get_all("Healthcare Practitioner", filters={"user_id":frappe.session.user},fields=["name"])
+	for p in loaded_practitioners:
+		frappe.msgprint("ALERT", alert=True)
+		frappe.msgprint(_("{0}".format(p.name)), alert=True)
 	if len(loaded_practitioners) > 0:
-		print (loaded_practitioners[0].name)
 		return "(`tabPatient Appointment`.practitioner='{user}' )".format(user=loaded_practitioners[0].name)
-	return None
+	# if there is are practitioners found do not return none
+	frappe.msgprint("ALERT", alert=True)
+	return "(`tabPatient Appointment`.name='empty' )"

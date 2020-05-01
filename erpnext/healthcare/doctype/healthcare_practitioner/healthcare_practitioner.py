@@ -92,4 +92,5 @@ def query_condition_for_practitioner(arg):
 				ids.append(practitioner.name)
 			query_params = ','.join("'{0}'".format(id) for id in ids)
 			return "(`tabHealthcare Practitioner`.name in ({query_params}))".format(query_params=query_params)
+
 	return None

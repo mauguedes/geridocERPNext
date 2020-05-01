@@ -151,4 +151,5 @@ def query_condition_for_practitioner(arg):
 					ids.append(appointment.patient)
 			query_params = ','.join("'{0}'".format(id) for id in ids)
 			return "(`tabPatient`.name in ({query_params}))".format(query_params=query_params)
-	return None
+	# If no patients are found, do not return None!
+	return "(`tabPatient`.name='empty')"
