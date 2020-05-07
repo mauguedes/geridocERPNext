@@ -31,6 +31,10 @@
   "section_break_16",
   "patient_name",
   "patient_sex",
+  "column_break_18",
+  "address_line",
+  "postal_code",
+  "city",
   "column_break_21",
   "patient_age",
   "section_break_1",
@@ -99,7 +103,6 @@
    "in_filter": 1,
    "label": "Status",
    "options": "\nScheduled\nOpen\nClosed\nPending\nCancelled",
-   "read_only": 1,
    "search_index": 1
   },
   {
@@ -317,9 +320,33 @@
    "label": "Last Name",
    "options": "Healthcare Practitioner",
    "read_only": 1
+  },
+  {
+   "fieldname": "address_line",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Address Line",
+   "read_only": 1
+  },
+  {
+   "fieldname": "postal_code",
+   "fieldtype": "Data",
+   "label": "Postal Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "city",
+   "fieldtype": "Data",
+   "label": "City",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_18",
+   "fieldtype": "Column Break"
   }
  ],
- "modified": "2020-04-30 15:03:25.148197",
+ "modified": "2020-05-04 11:20:12.046486",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Patient Appointment",

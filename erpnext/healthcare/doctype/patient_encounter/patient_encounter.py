@@ -11,15 +11,23 @@ class PatientEncounter(Document):
 	def on_update(self):
 		if(self.appointment):
 			frappe.db.set_value("Patient Appointment", self.appointment, "status", "Closed")
-		update_encounter_to_medical_record(self)
+		#update_encounter_to_medical_record(self)
 
-	def after_insert(self):
+	#def after_insert(self):
+	#	insert_encounter_to_medical_record(self)
+
+	def on_submit(self):
 		insert_encounter_to_medical_record(self)
 
 	def on_cancel(self):
 		if(self.appointment):
 			frappe.db.set_value("Patient Appointment", self.appointment, "status", "Open")
 		delete_medical_record(self)
+	def validate(self):
+		self.set_encounter_datetime()
+
+	def set_encounter_datetime(self):
+		self.encounter_datetime = "%s %s" % (self.encounter_date, self.encounter_time or "00:00:00")
 
 def insert_encounter_to_medical_record(doc):
 	subject = set_subject_field(doc)
