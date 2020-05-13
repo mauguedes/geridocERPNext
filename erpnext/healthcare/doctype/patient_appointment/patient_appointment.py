@@ -14,6 +14,8 @@ from frappe.core.doctype.sms_settings.sms_settings import send_sms
 from erpnext.hr.doctype.employee.employee import is_holiday
 from erpnext.healthcare.doctype.healthcare_settings.healthcare_settings import get_receivable_account,get_income_account
 from erpnext.healthcare.utils import validity_exists, service_item_and_practitioner_charge
+import string
+import random
 
 class PatientAppointment(Document):
 	def on_update(self):
@@ -50,6 +52,9 @@ class PatientAppointment(Document):
 		self.appointment_datetime = "%s %s" % (self.appointment_date, self.appointment_time or "00:00:00")
 
 	def after_insert(self):
+		tele_code = id_generator()
+		frappe.db.set_value("Patient Appointment", self.name, "tele_code", tele_code)
+
 		if self.procedure_prescription:
 			frappe.db.set_value("Procedure Prescription", self.procedure_prescription, "appointment_booked", True)
 			if self.procedure_template:
@@ -411,3 +416,6 @@ def query_condition_for_patient_appointment(arg):
 	# if there is are practitioners found do not return none
 	frappe.msgprint("ALERT", alert=True)
 	return "(`tabPatient Appointment`.name='empty' )"
+
+def id_generator(size=6, chars=string.digits):
+	return ''.join(random.SystemRandom().choice(chars) for _ in range(size))
