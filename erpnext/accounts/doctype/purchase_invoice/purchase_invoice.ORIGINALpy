@@ -56,6 +56,7 @@ class PurchaseInvoice(BuyingController):
 		if not self.on_hold:
 			self.release_date = ''
 
+
 	def invoice_is_blocked(self):
 		return self.on_hold and (not self.release_date or self.release_date > getdate(nowdate()))
 
@@ -101,10 +102,6 @@ class PurchaseInvoice(BuyingController):
 		self.set_status()
 		self.validate_purchase_receipt_if_update_stock()
 		validate_inter_company_party(self.doctype, self.supplier, self.company, self.inter_company_invoice_reference)
-		# new time sheets
-		#self.validate_time_sheets_are_submitted()
-		self.set_costing_hours_and_amount()
-		self.calculate_costing_amount_for_timesheet()
 
 	def validate_release_date(self):
 		if self.release_date and getdate(nowdate()) >= getdate(self.release_date):
@@ -372,57 +369,6 @@ class PurchaseInvoice(BuyingController):
 
 		self.update_project()
 		update_linked_doc(self.doctype, self.name, self.inter_company_invoice_reference)
-
-		# NEW SUBMIT - TIMESHEETS
-		self.update_time_sheet(self.name, True)
-
-	def before_cancel(self):
-		self.update_time_sheet(None)
-
-	# ------------------ NEW - Purchase Invoice Time Sheets -----
-	def validate_time_sheets_are_submitted(self):
-		for data in self.timesheets:
-			if data.time_sheet:
-				status = frappe.db.get_value("Timesheet", data.time_sheet, "status")
-				if status not in ['Submitted', 'Payslip']:
-					frappe.throw(_("Timesheet {0} is already completed or cancelled").format(data.time_sheet))
-
-	def set_costing_hours_and_amount(self):
-		for timesheet in self.timesheets:
-			ts_doc = frappe.get_doc('Timesheet', timesheet.time_sheet)
-			if not timesheet.costing_hours and ts_doc.total_purchasable_hours:
-				timesheet.costing_hours = ts_doc.total_purchasable_hours
-
-			if not timesheet.costing_amount and ts_doc.total_purchasable_amount:
-				timesheet.costing_amount = ts_doc.total_purchasable_amount
-
-	def calculate_costing_amount_for_timesheet(self):
-		total_costing_amount = 0.0
-		for data in self.timesheets:
-			if data.costing_amount:
-				total_costing_amount += data.costing_amount
-
-		self.total_costing_amount = total_costing_amount
-
-	def update_time_sheet(self, purchase_invoice, submit=False):
-		for d in self.timesheets:
-			if d.time_sheet:
-				timesheet = frappe.get_doc("Timesheet", d.time_sheet)
-				self.update_time_sheet_detail(timesheet, d, purchase_invoice)
-				timesheet.calculate_total_amounts()
-				timesheet.calculate_percentage_purchased()
-				timesheet.flags.ignore_validate_update_after_submit = True
-				timesheet.set_status()
-				timesheet.save()
-				if submit:
-					timesheet.submit()
-
-	def update_time_sheet_detail(self, timesheet, args, purchase_invoice):
-		for data in timesheet.time_logs:
-			if (not data.purchase_invoice) or \
-				(not purchase_invoice and data.purchase_invoice == self.name):
-				data.purchase_invoice = purchase_invoice
-	# ----------------- NEW - Purchase Invoice Time Sheets -----
 
 	def make_gl_entries(self, gl_entries=None, repost_future_gle=True, from_repost=False):
 		if not self.grand_total:

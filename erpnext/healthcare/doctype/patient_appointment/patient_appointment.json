@@ -13,6 +13,7 @@
   "appointment_type",
   "duration",
   "price",
+  "travel_cost",
   "column_break_1",
   "status",
   "procedure_template",
@@ -23,8 +24,7 @@
   "section_break_12",
   "department",
   "practitioner",
-  "first_name",
-  "last_name",
+  "practitioner_name",
   "column_break_17",
   "appointment_date",
   "appointment_time",
@@ -269,7 +269,6 @@
    "report_hide": 1
   },
   {
-   "collapsible": 1,
    "fieldname": "section_break_3",
    "fieldtype": "Section Break",
    "label": "More Info"
@@ -298,29 +297,12 @@
    "report_hide": 1
   },
   {
+   "allow_in_quick_entry": 1,
    "fieldname": "price",
    "fieldtype": "Currency",
-   "label": "Price"
-  },
-  {
-   "fetch_from": "practitioner.first_name",
-   "fieldname": "first_name",
-   "fieldtype": "Data",
-   "ignore_user_permissions": 1,
-   "in_list_view": 1,
-   "label": "First Name",
-   "options": "Healthcare Practitioner",
-   "read_only": 1
-  },
-  {
-   "bold": 1,
-   "fetch_from": "practitioner.last_name",
-   "fieldname": "last_name",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Last Name",
-   "options": "Healthcare Practitioner",
-   "read_only": 1
+   "label": "Price",
+   "options": "Currency",
+   "reqd": 1
   },
   {
    "fieldname": "address_line",
@@ -351,9 +333,26 @@
    "fieldtype": "Data",
    "label": "TeleCode",
    "read_only": 1
+  },
+  {
+   "fetch_from": "practitioner.practitioner_name",
+   "fetch_if_empty": 1,
+   "fieldname": "practitioner_name",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Practitioner Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "travel_cost",
+   "fieldtype": "Currency",
+   "label": "Travel Cost",
+   "no_copy": 1
   }
  ],
- "modified": "2020-05-11 19:19:24.325973",
+ "modified": "2020-07-16 11:38:11.305530",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Patient Appointment",

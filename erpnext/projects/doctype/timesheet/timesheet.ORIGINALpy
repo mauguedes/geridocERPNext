@@ -21,7 +21,6 @@ class OverWorkLoggedError(frappe.ValidationError): pass
 class Timesheet(Document):
 	def validate(self):
 		self.set_employee_name()
-		self.set_supplier_name()
 		self.set_status()
 		self.validate_dates()
 		self.validate_time_logs()
@@ -29,29 +28,19 @@ class Timesheet(Document):
 		self.update_cost()
 		self.calculate_total_amounts()
 		self.calculate_percentage_billed()
-		self.calculate_percentage_purchased()
 		self.set_dates()
 
 	def set_employee_name(self):
 		if self.employee and not self.employee_name:
 			self.employee_name = frappe.db.get_value('Employee', self.employee, 'employee_name')
 
-	def set_supplier_name(self):
-		if self.supplier:
-			self.supplier_name = frappe.db.get_value('Supplier', self.supplier, 'supplier_name')
-
 	def calculate_total_amounts(self):
 		self.total_hours = 0.0
 		self.total_billable_hours = 0.0
 		self.total_billed_hours = 0.0
 		self.total_billable_amount = 0.0
-		self.total_billed_amount = 0.0
 		self.total_costing_amount = 0.0
-		# NEW
-		self.total_purchasable_hours = 0.0
-		self.total_purchased_hours = 0.0
-		self.total_purchasable_amount = 0.0
-		self.total_purchased_amount = 0.0
+		self.total_billed_amount = 0.0
 
 		for d in self.get("time_logs"):
 			self.update_billing_hours(d)
@@ -64,23 +53,11 @@ class Timesheet(Document):
 				self.total_billable_amount += flt(d.billing_amount)
 				self.total_billed_amount += flt(d.billing_amount) if d.sales_invoice else 0.0
 				self.total_billed_hours += flt(d.billing_hours) if d.sales_invoice else 0.0
-			
-			# NEW
-			self.total_purchasable_hours += flt(d.hours)
-			self.total_purchasable_amount += flt(d.costing_amount)
-			self.total_purchased_amount += flt(d.costing_amount) if d.purchase_invoice else 0.0
-			self.total_purchased_hours += flt(d.hours) if d.purchase_invoice else 0.0
 
 	def calculate_percentage_billed(self):
 		self.per_billed = 0
 		if self.total_billed_amount > 0 and self.total_billable_amount > 0:
 			self.per_billed = (self.total_billed_amount * 100) / self.total_billable_amount
-
-	# NEW
-	def calculate_percentage_purchased(self):
-		self.per_purchased = 0
-		if self.total_purchased_amount > 0 and self.total_purchasable_amount > 0:
-			self.per_purchased = (self.total_purchased_amount * 100) / self.total_purchasable_amount
 
 	def update_billing_hours(self, args):
 		if args.billable:
@@ -418,16 +395,3 @@ def get_list_context(context=None):
 		"get_list": get_timesheets_list,
 		"row_template": "templates/includes/timesheet/timesheet_row.html"
 	}
-
-def query_condition_for_timesheet(arg):
-	if 'Projects Manager' in frappe.get_roles(frappe.session.user):
-		return """(`tabTimesheet`.name in (SELECT name FROM `tabTimesheet`))"""
-		#timesheets = frappe.get_all("Timesheet", fields=["name"])
-		#if len(timesheets) > 0:
-		#	timesheet_names = [timesheet.name for timesheet in timesheets]
-		#	query_names = ', '.join("'{0}'".format(name) for name in timesheet_names)
-		#	#query_names = "'TS-2020-00010'"
-		#	print('query_names {}'.format(query_names))
-		#	return "(`tabTimesheet`.name in ({names}))".format(names=query_names)
-	else:
-		return None

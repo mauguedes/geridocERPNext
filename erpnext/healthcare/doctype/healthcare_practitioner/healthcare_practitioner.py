@@ -27,6 +27,7 @@ class HealthcarePractitioner(Document):
                 self.practitioner = self.name
 
 	def validate(self):
+		self.set_practitioner_name()
 		validate_party_accounts(self)
 		if self.inpatient_visit_charge_item:
 			validate_service_item(self.inpatient_visit_charge_item, "Configure a service Item for Inpatient Visit Charge Item")
@@ -46,6 +47,10 @@ class HealthcarePractitioner(Document):
 			if existing_user_id:
 				frappe.permissions.remove_user_permission(
 					"Healthcare Practitioner", self.name, existing_user_id)
+
+	def set_practitioner_name(self):
+		self.practitioner_name = ' '.join(filter(lambda x: x, [self.first_name, self.middle_name, self.last_name]))
+
 
 	def on_update(self):
 		if self.user_id:

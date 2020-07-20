@@ -60,6 +60,7 @@
   "warehouse",
   "delivered_by_supplier",
   "project",
+  "project_name",
   "material_request",
   "material_request_item",
   "sales_order",
@@ -134,7 +135,6 @@
    "label": "Reqd By Date",
    "oldfieldname": "schedule_date",
    "oldfieldtype": "Date",
-   "print_hide": 1,
    "reqd": 1
   },
   {
@@ -257,7 +257,8 @@
    "fieldname": "discount_amount",
    "fieldtype": "Currency",
    "label": "Discount Amount",
-   "options": "currency"
+   "options": "currency",
+   "print_hide_if_no_value": 1
   },
   {
    "fieldname": "col_break3",
@@ -397,6 +398,7 @@
    "fieldname": "weight_per_unit",
    "fieldtype": "Float",
    "label": "Weight Per Unit",
+   "print_hide_if_no_value": 1,
    "read_only": 1
   },
   {
@@ -707,11 +709,21 @@
    "fieldtype": "Check",
    "label": "Is Fixed Asset",
    "read_only": 1
+  },
+  {
+   "depends_on": "project",
+   "description": "Super Descricao",
+   "fetch_from": "project.project_name",
+   "fetch_if_empty": 1,
+   "fieldname": "project_name",
+   "fieldtype": "Data",
+   "label": "Project Name",
+   "read_only": 1
   }
  ],
  "idx": 1,
  "istable": 1,
- "modified": "2020-04-07 18:35:17.558928",
+ "modified": "2020-06-25 10:42:28.176338",
  "modified_by": "Administrator",
  "module": "Buying",
  "name": "Purchase Order Item",

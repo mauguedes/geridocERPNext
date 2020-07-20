@@ -533,5 +533,7 @@ global_search_doctypes = {
 permission_query_conditions = {
 	"Patient Appointment": "erpnext.healthcare.doctype.patient_appointment.patient_appointment.query_condition_for_patient_appointment",
 	"Patient": "erpnext.healthcare.doctype.patient.patient.query_condition_for_practitioner",
-	"Healthcare Practitioner": "erpnext.healthcare.doctype.healthcare_practitioner.healthcare_practitioner.query_condition_for_practitioner"
+	"Healthcare Practitioner": "erpnext.healthcare.doctype.healthcare_practitioner.healthcare_practitioner.query_condition_for_practitioner",
+	#"Patient Encounter": "erpnext.healthcare.doctype.patient_encounter.patient_encounter.query_condition_for_patient_encounter"
+	"Timesheet": "erpnext.projects.doctype.timesheet.timesheet.query_condition_for_timesheet"
 }

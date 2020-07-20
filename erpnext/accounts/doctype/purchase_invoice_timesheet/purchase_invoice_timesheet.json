@@ -1,12 +1,12 @@
 {
- "creation": "2016-06-14 19:21:34.321662",
+ "creation": "2020-07-13 17:32:35.392718",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
   "time_sheet",
-  "billing_hours",
-  "billing_amount",
+  "costing_hours",
+  "costing_amount",
   "timesheet_detail"
  ],
  "fields": [
@@ -19,23 +19,24 @@
    "options": "Timesheet"
   },
   {
-   "fieldname": "billing_hours",
+   "fieldname": "costing_hours",
    "fieldtype": "Float",
    "in_list_view": 1,
-   "label": "Billing Hours",
+   "label": "Costing Hours",
    "read_only": 1
   },
   {
-   "fieldname": "billing_amount",
+   "fieldname": "costing_amount",
    "fieldtype": "Currency",
    "in_list_view": 1,
-   "label": "Billing Amount",
+   "label": "Costing Amount",
    "read_only": 1
   },
   {
    "allow_on_submit": 1,
    "fieldname": "timesheet_detail",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Timesheet Detail",
    "no_copy": 1,
    "print_hide": 1,
@@ -43,10 +44,10 @@
   }
  ],
  "istable": 1,
- "modified": "2020-07-13 21:09:20.359890",
+ "modified": "2020-07-13 17:32:35.392718",
  "modified_by": "Administrator",
  "module": "Accounts",
- "name": "Sales Invoice Timesheet",
+ "name": "Purchase Invoice Timesheet",
  "owner": "Administrator",
  "permissions": [],
  "quick_entry": 1,

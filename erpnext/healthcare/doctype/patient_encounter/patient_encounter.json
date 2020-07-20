@@ -24,7 +24,7 @@
   "company",
   "column_break_6",
   "practitioner",
-  "first_name",
+  "practitioner_name",
   "visit_department",
   "encounter_date",
   "encounter_time",
@@ -227,7 +227,6 @@
    "fieldname": "diagnosis",
    "fieldtype": "Small Text",
    "ignore_user_permissions": 1,
-   "ignore_xss_filter": 1,
    "no_copy": 1,
    "permlevel": 1
   },
@@ -303,16 +302,6 @@
    "read_only": 1
   },
   {
-   "fetch_from": "practitioner.first_name",
-   "fieldname": "first_name",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
-   "label": "Practitioner Name",
-   "options": "Healthcare Practitioner",
-   "read_only": 1
-  },
-  {
    "fieldname": "address_line",
    "fieldtype": "Data",
    "in_list_view": 1,
@@ -337,10 +326,21 @@
    "fieldtype": "Data",
    "label": "Date Time",
    "read_only": 1
+  },
+  {
+   "fetch_from": "practitioner.practitioner_name",
+   "fetch_if_empty": 1,
+   "fieldname": "practitioner_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Practitioner Name",
+   "options": "Healthcare Practitioner",
+   "read_only": 1
   }
  ],
  "is_submittable": 1,
- "modified": "2020-05-13 16:12:35.065075",
+ "modified": "2020-07-17 17:04:37.524837",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Patient Encounter",
@@ -359,6 +359,40 @@
    "role": "Physician",
    "share": 1,
    "submit": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "permlevel": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Physician",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Healthcare Administrator",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "permlevel": 1,
+   "print": 1,
+   "report": 1,
+   "role": "Healthcare Administrator",
+   "share": 1,
    "write": 1
   }
  ],

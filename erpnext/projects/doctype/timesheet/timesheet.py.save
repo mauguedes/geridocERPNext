@@ -419,15 +419,11 @@ def get_list_context(context=None):
 		"row_template": "templates/includes/timesheet/timesheet_row.html"
 	}
 
-def query_condition_for_timesheet(arg):
+def query_condition_for_practitioner(arg):
 	if 'Projects Manager' in frappe.get_roles(frappe.session.user):
-		return """(`tabTimesheet`.name in (SELECT name FROM `tabTimesheet`))"""
-		#timesheets = frappe.get_all("Timesheet", fields=["name"])
-		#if len(timesheets) > 0:
-		#	timesheet_names = [timesheet.name for timesheet in timesheets]
-		#	query_names = ', '.join("'{0}'".format(name) for name in timesheet_names)
-		#	#query_names = "'TS-2020-00010'"
-		#	print('query_names {}'.format(query_names))
-		#	return "(`tabTimesheet`.name in ({names}))".format(names=query_names)
-	else:
-		return None
+		return 
+	loaded_practitioners = frappe.get_all("Healthcare Practitioner", filters={"user_id":frappe.session.user},fields=["name"])
+	if len(loaded_practitioners) > 0:
+		return "(`tabPatient Appointment`.practitioner='{user}' )".format(user=loaded_practitioners[0].name)
+	return None
+"(`tabPatient Appointment`.practitioner='{user}' )".format(user=loaded_practitioners[0].name)

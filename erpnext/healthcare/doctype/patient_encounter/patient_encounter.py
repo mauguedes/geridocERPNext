@@ -70,3 +70,8 @@ def set_subject_field(encounter):
 		subject += "\nProcedure(s) Prescribed."
 
 	return subject
+
+#def query_condition_for_patient_encounter(arg):
+#	if 'Physician' in frappe.get_roles(frappe.session.user):
+#		return None
+#	return "(`tabPatient Encounter`)"

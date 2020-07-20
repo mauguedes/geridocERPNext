@@ -1,5 +1,4 @@
 {
- "actions": [],
  "autoname": "hash",
  "creation": "2013-05-22 12:43:10",
  "doctype": "DocType",
@@ -22,6 +21,7 @@
   "column_break_13",
   "manufacturer_part_no",
   "quantity_and_rate",
+  "delivered_date",
   "received_qty",
   "qty",
   "rejected_qty",
@@ -93,6 +93,7 @@
   "pr_detail",
   "accounting_dimensions_section",
   "project",
+  "project_name",
   "dimension_col_break",
   "cost_center",
   "section_break_82",
@@ -125,7 +126,9 @@
    "label": "Item Name",
    "oldfieldname": "item_name",
    "oldfieldtype": "Data",
-   "reqd": 1
+   "print_width": "400px",
+   "reqd": 1,
+   "width": "400px"
   },
   {
    "collapsible": 1,
@@ -139,6 +142,7 @@
    "label": "Description",
    "oldfieldname": "description",
    "oldfieldtype": "Text",
+   "print_hide": 1,
    "print_width": "300px",
    "width": "300px"
   },
@@ -163,7 +167,8 @@
   {
    "fieldname": "received_qty",
    "fieldtype": "Float",
-   "label": "Received Qty"
+   "label": "Received Qty",
+   "print_hide_if_no_value": 1
   },
   {
    "bold": 1,
@@ -179,7 +184,8 @@
   {
    "fieldname": "rejected_qty",
    "fieldtype": "Float",
-   "label": "Rejected Qty"
+   "label": "Rejected Qty",
+   "print_hide_if_no_value": 1
   },
   {
    "fieldname": "stock_uom",
@@ -238,7 +244,8 @@
    "fieldname": "discount_amount",
    "fieldtype": "Currency",
    "label": "Discount Amount",
-   "options": "currency"
+   "options": "currency",
+   "print_hide_if_no_value": 1
   },
   {
    "fieldname": "col_break3",
@@ -371,12 +378,14 @@
   {
    "fieldname": "weight_per_unit",
    "fieldtype": "Float",
-   "label": "Weight Per Unit"
+   "label": "Weight Per Unit",
+   "print_hide_if_no_value": 1
   },
   {
    "fieldname": "total_weight",
    "fieldtype": "Float",
    "label": "Total Weight",
+   "print_hide_if_no_value": 1,
    "read_only": 1
   },
   {
@@ -398,7 +407,8 @@
    "fieldname": "warehouse",
    "fieldtype": "Link",
    "label": "Accepted Warehouse",
-   "options": "Warehouse"
+   "options": "Warehouse",
+   "print_hide": 1
   },
   {
    "fieldname": "rejected_warehouse",
@@ -764,12 +774,27 @@
    "label": "Asset Category",
    "options": "Asset Category",
    "read_only": 1
+  },
+  {
+   "fetch_from": "project.project_name",
+   "fetch_if_empty": 1,
+   "fieldname": "project_name",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "label": "Project Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "delivered_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date"
   }
  ],
  "idx": 1,
  "istable": 1,
- "links": [],
- "modified": "2020-04-07 18:34:35.104178",
+ "modified": "2020-06-25 13:20:22.771235",
  "modified_by": "Administrator",
  "module": "Accounts",
  "name": "Purchase Invoice Item",

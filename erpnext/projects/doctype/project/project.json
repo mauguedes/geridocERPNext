@@ -1,12 +1,13 @@
 {
  "allow_import": 1,
  "allow_rename": 1,
- "autoname": "field:project_name",
+ "autoname": "naming_series:",
  "creation": "2013-03-07 11:55:07",
  "doctype": "DocType",
  "document_type": "Setup",
  "engine": "InnoDB",
  "field_order": [
+  "naming_series",
   "project_name",
   "status",
   "project_type",
@@ -19,6 +20,8 @@
   "expected_end_date",
   "priority",
   "department",
+  "supplier_rates_section",
+  "supplier_rates",
   "customer_details",
   "customer",
   "column_break_14",
@@ -67,6 +70,9 @@
   {
    "fieldname": "project_name",
    "fieldtype": "Data",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Project Name",
    "oldfieldtype": "Data",
    "reqd": 1,
@@ -439,15 +445,33 @@
    "fieldname": "message",
    "fieldtype": "Text",
    "label": "Message"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "PROJ-.YYYY.-"
+  },
+  {
+   "fieldname": "supplier_rates_section",
+   "fieldtype": "Section Break",
+   "label": "Supplier Rates"
+  },
+  {
+   "fieldname": "supplier_rates",
+   "fieldtype": "Table",
+   "label": "Supplier Rates",
+   "options": "Project Rate"
   }
  ],
  "icon": "fa fa-puzzle-piece",
  "idx": 29,
  "max_attachments": 4,
- "modified": "2020-04-09 14:17:15.524529",
+ "modified": "2020-06-26 16:36:52.244960",
  "modified_by": "Administrator",
  "module": "Projects",
  "name": "Project",
+ "name_case": "Title Case",
  "owner": "Administrator",
  "permissions": [
   {
@@ -486,5 +510,6 @@
  "sort_field": "modified",
  "sort_order": "DESC",
  "timeline_field": "customer",
+ "title_field": "project_name",
  "track_seen": 1
 }

@@ -13,8 +13,10 @@
   "first_name",
   "middle_name",
   "last_name",
+  "practitioner_name",
   "image",
   "employee",
+  "supplier",
   "user_id",
   "designation",
   "department",
@@ -23,12 +25,26 @@
   "mobile_phone",
   "residence_phone",
   "office_phone",
-  "active",
+  "is_medic",
   "practitioner",
+  "active",
   "appointments",
   "practitioner_schedules",
+  "service_items_break",
+  "service_item",
+  "column_break_23",
+  "service_item_day",
+  "column_break_12",
+  "service_item_night",
+  "column_break_14",
+  "service_item_weekend",
+  "service_rate_section",
+  "service_fee",
+  "column_break_32",
+  "travel_fee",
   "charges",
   "op_consulting_charge_item",
+  "data_22",
   "op_consulting_charge",
   "column_break_18",
   "inpatient_visit_charge_item",
@@ -72,8 +88,10 @@
   {
    "fieldname": "employee",
    "fieldtype": "Link",
+   "ignore_user_permissions": 1,
    "label": "Employee",
-   "options": "Employee"
+   "options": "Employee",
+   "unique": 1
   },
   {
    "fieldname": "user_id",
@@ -145,8 +163,10 @@
    "options": "Practitioner Service Unit Schedule"
   },
   {
+   "collapsible": 1,
    "fieldname": "charges",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Charges"
   },
   {
@@ -223,6 +243,8 @@
    "report_hide": 1
   },
   {
+   "fetch_from": "doc.name",
+   "fetch_if_empty": 1,
    "fieldname": "practitioner",
    "fieldtype": "Data",
    "label": "Practitioner",
@@ -236,11 +258,108 @@
    "fieldtype": "Select",
    "label": "Series",
    "options": "HLC-PRA-",
+   "reqd": 1,
    "set_only_once": 1
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Supplier",
+   "no_copy": 1,
+   "options": "Supplier",
+   "unique": 1
+  },
+  {
+   "fieldname": "data_22",
+   "fieldtype": "Data"
+  },
+  {
+   "fieldname": "service_item_day",
+   "fieldtype": "Link",
+   "label": "Service Item - Day Time",
+   "options": "Item"
+  },
+  {
+   "fieldname": "service_item_night",
+   "fieldtype": "Link",
+   "label": "Service Item - Night Time",
+   "options": "Item"
+  },
+  {
+   "fieldname": "service_item_weekend",
+   "fieldtype": "Link",
+   "label": "Service Item - Weekend",
+   "options": "Item"
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_14",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "service_items_break",
+   "fieldtype": "Section Break",
+   "label": "Service Items"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "default": "0",
+   "fieldname": "is_medic",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Medic"
+  },
+  {
+   "fieldname": "service_item",
+   "fieldtype": "Link",
+   "label": "Service Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "column_break_23",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "service_rate_section",
+   "fieldtype": "Section Break",
+   "label": "Service Fees"
+  },
+  {
+   "fieldname": "service_fee",
+   "fieldtype": "Percent",
+   "label": "Service Fee (%)",
+   "precision": "0"
+  },
+  {
+   "fieldname": "practitioner_name",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Full Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_32",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "travel_fee",
+   "fieldtype": "Percent",
+   "label": "Travel Fee (%)",
+   "precision": "0"
   }
  ],
  "image_field": "image",
- "modified": "2020-04-29 10:43:16.804459",
+ "modified": "2020-07-18 13:02:19.453713",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Healthcare Practitioner",

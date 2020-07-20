@@ -1,5 +1,4 @@
 {
- "actions": [],
  "allow_events_in_timeline": 1,
  "allow_import": 1,
  "allow_rename": 1,
@@ -13,6 +12,8 @@
   "basic_info",
   "naming_series",
   "supplier_name",
+  "practitioner",
+  "practitioner_name",
   "country",
   "default_bank_account",
   "tax_id",
@@ -75,17 +76,16 @@
    "oldfieldname": "naming_series",
    "oldfieldtype": "Select",
    "options": "SUP-.YYYY.-",
+   "reqd": 1,
    "set_only_once": 1
   },
   {
-   "bold": 1,
+   "allow_in_quick_entry": 1,
    "fieldname": "supplier_name",
    "fieldtype": "Data",
-   "in_global_search": 1,
-   "label": "Supplier Name",
-   "no_copy": 1,
-   "oldfieldname": "supplier_name",
-   "oldfieldtype": "Data",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "label": "Full Name",
    "reqd": 1
   },
   {
@@ -379,13 +379,30 @@
    "fieldname": "allow_purchase_invoice_creation_without_purchase_receipt",
    "fieldtype": "Check",
    "label": "Allow Purchase Invoice Creation Without Purchase Receipt"
+  },
+  {
+   "fetch_from": "healthcare_practitioner.full_name",
+   "fieldname": "practitioner_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Practitioner Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "practitioner",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Practitioner",
+   "options": "Healthcare Practitioner",
+   "unique": 1
   }
  ],
  "icon": "fa fa-user",
  "idx": 370,
  "image_field": "image",
- "links": [],
- "modified": "2020-03-17 09:48:30.578242",
+ "modified": "2020-07-14 16:03:26.163927",
  "modified_by": "Administrator",
  "module": "Buying",
  "name": "Supplier",
@@ -449,6 +466,5 @@
  "show_name_in_global_search": 1,
  "sort_field": "modified",
  "sort_order": "ASC",
- "title_field": "supplier_name",
  "track_changes": 1
 }

@@ -1,0 +1,106 @@
+{
+ "creation": "2020-06-26 11:23:20.594948",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "project",
+  "column_break_1",
+  "project_name",
+  "practitioner",
+  "service_item_day",
+  "service_item_night",
+  "service_item_weekend",
+  "column_break_2",
+  "service_charge_day",
+  "service_charge_night",
+  "service_charge_weekend"
+ ],
+ "fields": [
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Project",
+   "options": "Project",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "project.project_name",
+   "fetch_if_empty": 1,
+   "fieldname": "project_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Project Name"
+  },
+  {
+   "fieldname": "practitioner",
+   "fieldtype": "Link",
+   "label": "Practitioner",
+   "options": "Healthcare Practitioner"
+  },
+  {
+   "fieldname": "service_item_day",
+   "fieldtype": "Link",
+   "label": "Service Item Day",
+   "options": "Item"
+  },
+  {
+   "fieldname": "service_item_night",
+   "fieldtype": "Link",
+   "label": "Service Item Night",
+   "options": "Item"
+  },
+  {
+   "fieldname": "service_item_weekend",
+   "fieldtype": "Link",
+   "label": "Service Item Weekend",
+   "options": "Item"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "service_charge_day",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Service Charge Day",
+   "options": "Currency",
+   "precision": "2",
+   "reqd": 1
+  },
+  {
+   "fieldname": "service_charge_night",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Service Charge Night",
+   "options": "Currency",
+   "precision": "2",
+   "reqd": 1
+  },
+  {
+   "fieldname": "service_charge_weekend",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Service Charge Weekend",
+   "options": "Currency",
+   "reqd": 1
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-06-26 11:38:27.957467",
+ "modified_by": "Administrator",
+ "module": "Healthcare",
+ "name": "Practitioner Project Rate",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
