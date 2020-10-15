@@ -38,13 +38,18 @@
   "service_item_night",
   "column_break_14",
   "service_item_weekend",
+  "service_rates_section",
+  "service_rate_day",
+  "column_break_32",
+  "service_rate_night",
+  "column_break_34",
+  "service_rate_weekend",
   "service_rate_section",
   "service_fee",
-  "column_break_32",
+  "column_break_38",
   "travel_fee",
   "charges",
   "op_consulting_charge_item",
-  "data_22",
   "op_consulting_charge",
   "column_break_18",
   "inpatient_visit_charge_item",
@@ -274,10 +279,6 @@
    "unique": 1
   },
   {
-   "fieldname": "data_22",
-   "fieldtype": "Data"
-  },
-  {
    "fieldname": "service_item_day",
    "fieldtype": "Link",
    "label": "Service Item - Day Time",
@@ -356,10 +357,41 @@
    "fieldtype": "Percent",
    "label": "Travel Fee (%)",
    "precision": "0"
+  },
+  {
+   "fieldname": "service_rates_section",
+   "fieldtype": "Section Break",
+   "label": "Service Rates"
+  },
+  {
+   "fieldname": "service_rate_day",
+   "fieldtype": "Currency",
+   "label": "Service Rate - Day Time",
+   "options": "Currency"
+  },
+  {
+   "fieldname": "service_rate_night",
+   "fieldtype": "Currency",
+   "label": "Service Rate - Night Time",
+   "options": "Currency"
+  },
+  {
+   "fieldname": "service_rate_weekend",
+   "fieldtype": "Currency",
+   "label": "Service Rate - Weekend Time",
+   "options": "Currency"
+  },
+  {
+   "fieldname": "column_break_34",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_38",
+   "fieldtype": "Column Break"
   }
  ],
  "image_field": "image",
- "modified": "2020-07-18 13:02:19.453713",
+ "modified": "2020-10-03 20:20:48.766254",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Healthcare Practitioner",

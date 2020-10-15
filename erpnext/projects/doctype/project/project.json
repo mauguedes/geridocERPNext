@@ -22,6 +22,7 @@
   "department",
   "supplier_rates_section",
   "supplier_rates",
+  "archived_supplier_rates",
   "customer_details",
   "customer",
   "column_break_14",
@@ -462,12 +463,18 @@
    "fieldtype": "Table",
    "label": "Supplier Rates",
    "options": "Project Rate"
+  },
+  {
+   "fieldname": "archived_supplier_rates",
+   "fieldtype": "Table",
+   "label": "Archived Supplier Rates",
+   "options": "Project Rate"
   }
  ],
  "icon": "fa fa-puzzle-piece",
  "idx": 29,
  "max_attachments": 4,
- "modified": "2020-06-26 16:36:52.244960",
+ "modified": "2020-10-13 20:42:30.632213",
  "modified_by": "Administrator",
  "module": "Projects",
  "name": "Project",
