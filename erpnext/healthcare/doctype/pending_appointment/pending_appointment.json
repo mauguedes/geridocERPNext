@@ -1,0 +1,94 @@
+{
+ "autoname": "naming_series",
+ "creation": "2020-10-24 13:57:15.869783",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "patient",
+  "appointment_type",
+  "department",
+  "patient_name",
+  "patient_sex",
+  "phone_number"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Pending Name",
+   "options": "PND-OP-.YYYY.-.######"
+  },
+  {
+   "fieldname": "patient",
+   "fieldtype": "Link",
+   "label": "Patient",
+   "options": "Patient"
+  },
+  {
+   "fieldname": "appointment_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Appointment Type",
+   "options": "Appointment Type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Department",
+   "options": "Medical Department",
+   "reqd": 1
+  },
+  {
+   "fieldname": "patient_name",
+   "fieldtype": "Read Only",
+   "in_list_view": 1,
+   "label": "Patient Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "patient_sex",
+   "fieldtype": "Data",
+   "label": "Gender"
+  },
+  {
+   "fieldname": "phone_number",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Phone Number",
+   "reqd": 1
+  }
+ ],
+ "modified": "2020-10-24 14:06:12.084727",
+ "modified_by": "Administrator",
+ "module": "Healthcare",
+ "name": "Pending Appointment",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "restrict_to_domain": "Healthcare",
+ "search_fields": "patient, patient_name, phone_number",
+ "show_name_in_global_search": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "patient_name",
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}
