@@ -1,0 +1,22 @@
+# -*- coding: utf-8 -*-
+# Copyright (c) 2015, Frappe Technologies Pvt. Ltd. and contributors
+# For license information, please see license.txt
+
+from __future__ import unicode_literals
+import frappe
+from frappe.model.document import Document
+
+class TimesheetDetail(Document):
+		def before_timesheets_remove(self, cdt, cdn):
+		frappe.msgprint(_("cdT {0}").format(cdt), raise_exception=True)
+		frappe.msgprint(_("cdN {0}").format(cdn), raise_exception=True)
+		self.update_time_sheet(None)
+		for d in self.timesheets:
+			if d.time_sheet:
+				timesheet = frappe.get_doc("Timesheet", d.time_sheet)
+				self.update_time_sheet_detail(timesheet, d, purchase_invoice)
+				timesheet.calculate_total_amounts()
+				timesheet.calculate_percentage_purchased()
+				timesheet.flags.ignore_validate_update_after_submit = True
+				timesheet.set_status()
+				timesheet.save()

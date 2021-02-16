@@ -16,23 +16,6 @@ frappe.ui.form.on("Project", {
 				open_form(frm, "Purchase Invoice", "Purchase Invoice Item", "items");
 			},
 		};
-
-		frm.set_query('project_primary_contact', function(doc) {
-			return {
-				query: "erpnext.selling.doctype.project.project.get_project_primary_contact",
-				filters: {
-					'project': doc.name
-				}
-			}
-		})
-		frm.set_query('project_primary_address', function(doc) {
-			return {
-				filters: {
-					'link_doctype': 'Project',
-					'link_name': doc.name
-				}
-			}
-		})
 	},
 	onload: function (frm) {
 		var so = frappe.meta.get_docfield("Project", "sales_order");
@@ -66,30 +49,6 @@ frappe.ui.form.on("Project", {
 				filters: filters
 			};
 		});
-	},
-
-	project_primary_address: function(frm){
-		if(frm.doc.project_primary_address){
-			frappe.call({
-				method: 'frappe.contacts.doctype.address.address.get_address_display',
-				args: {
-					"address_dict": frm.doc.project_primary_address
-				},
-				callback: function(r) {
-					frm.set_value("primary_address", r.message);
-				}
-			});
-		}
-		if(!frm.doc.project_primary_address){
-			frm.set_value("primary_address", "");
-		}
-	},
-
-	project_primary_contact: function(frm){
-		if(!frm.doc.project_primary_contact){
-			frm.set_value("mobile_no", "");
-			frm.set_value("email_id", "");
-		}
 	},
 
 	refresh: function (frm) {

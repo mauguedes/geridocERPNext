@@ -70,6 +70,9 @@
   "time_sheet_list_section",
   "timesheets",
   "total_costing_amount",
+  "appointments_list_section",
+  "appointments",
+  "total_costing_amount_appointments",
   "section_break_26",
   "total_qty",
   "base_total",
@@ -1209,9 +1212,11 @@
    "fieldtype": "Column Break"
   },
   {
+   "allow_on_submit": 1,
    "default": "Draft",
    "fieldname": "status",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Status",
    "options": "\nDraft\nReturn\nDebit Note Issued\nSubmitted\nPaid\nUnpaid\nOverdue\nCancelled",
@@ -1305,16 +1310,34 @@
    "label": "Total Costing Amount",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "appointments_list_section",
+   "fieldtype": "Section Break",
+   "label": "Appointments List"
+  },
+  {
+   "fieldname": "appointments",
+   "fieldtype": "Table",
+   "label": "Appointments",
+   "options": "Appointment Detail",
+   "print_hide": 1
+  },
+  {
+   "fieldname": "total_costing_amount_appointments",
+   "fieldtype": "Currency",
+   "label": "Total Costing Amount",
+   "print_hide": 1,
+   "read_only": 1
   }
  ],
  "icon": "fa fa-file-text",
  "idx": 204,
  "is_submittable": 1,
- "modified": "2020-07-13 20:29:05.576235",
+ "modified": "2021-02-15 10:00:49.041217",
  "modified_by": "Administrator",
  "module": "Accounts",
  "name": "Purchase Invoice",
- "name_case": "Title Case",
  "owner": "Administrator",
  "permissions": [
   {
@@ -1370,6 +1393,5 @@
  "sort_field": "modified",
  "sort_order": "DESC",
  "timeline_field": "supplier",
- "title_field": "title",
  "track_changes": 1
 }

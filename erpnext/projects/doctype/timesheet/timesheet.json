@@ -162,13 +162,6 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "time_logs",
-   "fieldtype": "Table",
-   "label": "Time Sheets",
-   "options": "Timesheet Detail",
-   "reqd": 1
-  },
-  {
    "fieldname": "working_hours",
    "fieldtype": "Section Break"
   },
@@ -348,12 +341,19 @@
    "fieldtype": "Link",
    "label": "Sales Invoice",
    "options": "Sales Invoice"
+  },
+  {
+   "fieldname": "time_logs",
+   "fieldtype": "Table",
+   "label": "Time Sheets",
+   "options": "Timesheet Detail",
+   "reqd": 1
   }
  ],
  "icon": "fa fa-clock-o",
  "idx": 1,
  "is_submittable": 1,
- "modified": "2020-07-18 12:44:12.091667",
+ "modified": "2021-01-04 09:47:52.800560",
  "modified_by": "Administrator",
  "module": "Projects",
  "name": "Timesheet",

@@ -103,7 +103,7 @@
    "fieldtype": "Link",
    "label": "User",
    "options": "User",
-   "search_index": 1
+   "unique": 1
   },
   {
    "fieldname": "designation",
@@ -391,7 +391,7 @@
   }
  ],
  "image_field": "image",
- "modified": "2020-10-03 20:20:48.766254",
+ "modified": "2021-02-13 18:44:31.496658",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Healthcare Practitioner",

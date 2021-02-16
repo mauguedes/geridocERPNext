@@ -1,0 +1,46 @@
+{
+ "creation": "2021-01-04 12:10:17.372090",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "appointment",
+  "appointment_date",
+  "costing_amount"
+ ],
+ "fields": [
+  {
+   "fieldname": "appointment",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Appointment",
+   "options": "Patient Appointment"
+  },
+  {
+   "fetch_from": "appointment.appointment_date",
+   "fetch_if_empty": 1,
+   "fieldname": "appointment_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date"
+  },
+  {
+   "fieldname": "costing_amount",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Costing Amount"
+  }
+ ],
+ "istable": 1,
+ "modified": "2021-01-04 12:16:48.317985",
+ "modified_by": "Administrator",
+ "module": "Projects",
+ "name": "Appointment Detail",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

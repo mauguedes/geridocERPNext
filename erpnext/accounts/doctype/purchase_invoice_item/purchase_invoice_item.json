@@ -94,6 +94,8 @@
   "accounting_dimensions_section",
   "project",
   "project_name",
+  "appointment",
+  "patient_name",
   "dimension_col_break",
   "cost_center",
   "section_break_82",
@@ -789,11 +791,29 @@
    "fieldtype": "Date",
    "in_list_view": 1,
    "label": "Date"
+  },
+  {
+   "fetch_if_empty": 1,
+   "fieldname": "appointment",
+   "fieldtype": "Link",
+   "label": "Appointment",
+   "options": "Patient Appointment",
+   "print_hide": 1
+  },
+  {
+   "fetch_from": "patient_appointment.patient_name",
+   "fetch_if_empty": 1,
+   "fieldname": "patient_name",
+   "fieldtype": "Read Only",
+   "in_list_view": 1,
+   "label": "Patient Name",
+   "options": "Patient Appointment",
+   "read_only": 1
   }
  ],
  "idx": 1,
  "istable": 1,
- "modified": "2020-10-10 18:24:14.985031",
+ "modified": "2021-02-13 23:16:20.273650",
  "modified_by": "Administrator",
  "module": "Accounts",
  "name": "Purchase Invoice Item",

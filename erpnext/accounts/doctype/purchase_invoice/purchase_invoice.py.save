@@ -105,18 +105,9 @@ class PurchaseInvoice(BuyingController):
 		#self.validate_time_sheets_are_submitted()
 		self.set_costing_hours_and_amount()
 		self.calculate_costing_amount_for_timesheet()
-		self.calculate_costing_amount_for_appointments()
 
-	# New
 	def on_update(self):
-		self.update_time_sheets(self.name)
-		self.update_appointments(self.name)
-
-	# New
-	def on_trash(self):
-		self.update_time_sheets(None)
-		self.update_appointments(None)
-
+		self.update_time_sheet(self.name)
 
 	def validate_release_date(self):
 		if self.release_date and getdate(nowdate()) >= getdate(self.release_date):
@@ -385,15 +376,13 @@ class PurchaseInvoice(BuyingController):
 		self.update_project()
 		update_linked_doc(self.doctype, self.name, self.inter_company_invoice_reference)
 
-		# NEW SUBMIT - TIMESHEETS and Appointments
-		self.update_time_sheets(self.name)
-		self.update_appointments(self.name)
+		# NEW SUBMIT - TIMESHEETS
+		self.update_time_sheet(self.name, True)
 
 	def before_cancel(self):
-		self.update_time_sheets(None)
-		self.update_appointments(None)
+		self.update_time_sheet(None)
 
-	# ------------------ NEW - Purchase Invoice Time Sheets and Appointments  -----
+	# ------------------ NEW - Purchase Invoice Time Sheets -----
 	def validate_time_sheets_are_submitted(self):
 		for data in self.timesheets:
 			if data.time_sheet:
@@ -409,11 +398,8 @@ class PurchaseInvoice(BuyingController):
 
 			if not timesheet.costing_amount and ts_doc.total_purchasable_amount:
 				timesheet.costing_amount = ts_doc.total_purchasable_amount
-
-		for entry in self.appointments:
-			ap_doc = frappe.get_doc('Patient Appointment', entry.appointment)
-			if ap_doc.price:
-				entry.costing_amount = ap_doc.price
+		set_costing_hours_and_amount
+set_costing_hours_and_amount
 
 	def calculate_costing_amount_for_timesheet(self):
 		total_costing_amount = 0.0
@@ -423,15 +409,7 @@ class PurchaseInvoice(BuyingController):
 
 		self.total_costing_amount = total_costing_amount
 
-	def calculate_costing_amount_for_appointments(self):
-		total_costing_amount_appointments = 0.0
-		for data in self.appointments:
-			if data.costing_amount:
-				total_costing_amount_appointments += data.costing_amount
-
-		self.total_costing_amount_appointments = total_costing_amount_appointments
-
-	def update_time_sheets(self, purchase_invoice):
+	def update_time_sheet(self, purchase_invoice, submit=False):
 		for d in self.timesheets:
 			if d.time_sheet:
 				timesheet = frappe.get_doc("Timesheet", d.time_sheet)
@@ -441,21 +419,14 @@ class PurchaseInvoice(BuyingController):
 				timesheet.flags.ignore_validate_update_after_submit = True
 				timesheet.set_status()
 				timesheet.save()
+				if submit:
+					timesheet.submit()
 
 	def update_time_sheet_detail(self, timesheet, args, purchase_invoice):
 		for data in timesheet.time_logs:
 			if (not data.purchase_invoice) or \
 				(not purchase_invoice and data.purchase_invoice == self.name):
 				data.purchase_invoice = purchase_invoice
-
-	def update_appointments(self, purchase_invoice, submit=False):
-		for ap in self.appointments:
-			if ap.appointment:
-				appointment = frappe.get_doc("Patient Appointment", ap.appointment)
-				appointment.flags.ignore_validate_update_after_submit = True
-				appointment.purchase_invoice = purchase_invoice
-				appointment.save()
-
 	# ----------------- NEW - Purchase Invoice Time Sheets -----
 
 	def make_gl_entries(self, gl_entries=None, repost_future_gle=True, from_repost=False):
@@ -1133,17 +1104,3 @@ def make_inter_company_sales_invoice(source_name, target_doc=None):
 
 def on_doctype_update():
 	frappe.db.add_index("Purchase Invoice", ["supplier", "is_return", "return_against"])
-
-@frappe.whitelist()
-def edit_bulk_status(names, status):
-	if not names and not status:
-		frappe.throw("Must provide names and status")
-	field_status = frappe.get_meta('Purchase Invoice').get_field("status")
-	if status not in field_status.options:
-		throw(_("Invalid Status option {0}").format(status))
-	for name in names:
-		if not frappe.db.exists('Purchase Invoice', name):
-			throw(_("Could not find Purchase Invoice {0}").format(name))
-	query_names = ','.join("'{0}'".format(name) for name in names)
-	return frappe.db.sql("""UPDATE `tabPurchase Invoice` SET `status` = '{status}' WHERE `name` IN ({names})""".format(status=status, names=query_names), as_list=True)
-

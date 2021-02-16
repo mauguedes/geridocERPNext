@@ -54,6 +54,8 @@
   "default_payable_accounts",
   "accounts",
   "default_tax_withholding_config",
+  "appointment_history_section",
+  "appointment_history",
   "column_break2",
   "website",
   "supplier_details",
@@ -397,12 +399,24 @@
    "label": "Practitioner",
    "options": "Healthcare Practitioner",
    "unique": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "appointment_history_section",
+   "fieldtype": "Section Break",
+   "label": "Appointment History"
+  },
+  {
+   "fieldname": "appointment_history",
+   "fieldtype": "Table",
+   "label": "Appointments",
+   "options": "Supplier Patient Appointment"
   }
  ],
  "icon": "fa fa-user",
  "idx": 370,
  "image_field": "image",
- "modified": "2020-07-14 16:03:26.163927",
+ "modified": "2021-02-13 16:12:23.841652",
  "modified_by": "Administrator",
  "module": "Buying",
  "name": "Supplier",

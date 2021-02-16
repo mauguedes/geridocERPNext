@@ -20,6 +20,19 @@
   "expected_end_date",
   "priority",
   "department",
+  "address_and_contacts_section",
+  "address_html",
+  "column_break_16",
+  "contact_html",
+  "primary_address_and_contact_detail_section",
+  "project_primary_contact",
+  "mobile_no",
+  "email_id",
+  "column_break_22",
+  "project_primary_address",
+  "primary_address",
+  "section_break_14",
+  "time_slots",
   "supplier_rates_section",
   "supplier_rates",
   "archived_supplier_rates",
@@ -184,7 +197,6 @@
    "oldfieldname": "customer",
    "oldfieldtype": "Link",
    "options": "Customer",
-   "print_hide": 1,
    "search_index": 1
   },
   {
@@ -469,12 +481,90 @@
    "fieldtype": "Table",
    "label": "Archived Supplier Rates",
    "options": "Project Rate"
+  },
+  {
+   "fieldname": "section_break_14",
+   "fieldtype": "Section Break"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "time_slots",
+   "fieldtype": "Table",
+   "label": "Time Slots",
+   "options": "Project Schedule Time Slot",
+   "reqd": 1
+  },
+  {
+   "collapsible_depends_on": "eval:!doc.__islocal",
+   "fieldname": "address_and_contacts_section",
+   "fieldtype": "Section Break",
+   "label": "Address And Contact",
+   "options": "fa fa-map-marker"
+  },
+  {
+   "fieldname": "address_html",
+   "fieldtype": "HTML",
+   "label": "Address HTML",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_16",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "contact_html",
+   "fieldtype": "HTML",
+   "label": "Contact HTML",
+   "read_only": 1
+  },
+  {
+   "description": "Reselect, if the chosen contact is edited after save",
+   "fieldname": "project_primary_contact",
+   "fieldtype": "Link",
+   "label": "Project Primary Contact",
+   "options": "Contact"
+  },
+  {
+   "fieldname": "primary_address_and_contact_detail_section",
+   "fieldtype": "Section Break",
+   "label": "Primary Address and Contact Detail"
+  },
+  {
+   "fetch_from": "project_primary_contact.mobile_no",
+   "fieldname": "mobile_no",
+   "fieldtype": "Read Only",
+   "label": "Mobile No",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "project_primary_contact.email_id",
+   "fieldname": "email_id",
+   "fieldtype": "Read Only",
+   "label": "Email Id",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_22",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Reselect, if the chosen address is edited after save",
+   "fieldname": "project_primary_address",
+   "fieldtype": "Link",
+   "label": "Project Primary Address",
+   "options": "Address"
+  },
+  {
+   "fieldname": "primary_address",
+   "fieldtype": "Text",
+   "label": "Primary Address",
+   "read_only": 1
   }
  ],
  "icon": "fa fa-puzzle-piece",
  "idx": 29,
  "max_attachments": 4,
- "modified": "2020-10-13 20:42:30.632213",
+ "modified": "2021-02-16 17:37:08.654507",
  "modified_by": "Administrator",
  "module": "Projects",
  "name": "Project",
