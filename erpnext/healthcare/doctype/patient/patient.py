@@ -12,6 +12,8 @@ from frappe.model.naming import set_name_by_naming_series
 from erpnext.healthcare.doctype.healthcare_settings.healthcare_settings import get_receivable_account,get_income_account,send_registration_sms
 from frappe.contacts.address_and_contact import load_address_and_contact, delete_contact_and_address
 
+from six import string_types
+
 class Patient(Document):
 	def onload(self):
 		load_address_and_contact(self)
@@ -38,6 +40,7 @@ class Patient(Document):
 				'sex': self.sex,
 				'age': self.get_age(),
 				'name': self.name
+
 			})
 
 	def add_as_website_user(self):
@@ -153,3 +156,18 @@ def query_condition_for_practitioner(arg):
 			return "(`tabPatient`.name in ({query_params}))".format(query_params=query_params)
 	# If no patients are found, do not return None!
 	return "(`tabPatient`.name='empty')"
+
+@frappe.whitelist()
+def search_patient(fields, value, query_fields):
+	import json
+
+	if isinstance(query_fields, string_types):
+		query_fields_list = json.loads(query_fields)
+
+	or_filters = [["Patient", query_field, "like", "%{0}%".format(value)] for query_field in query_fields_list]
+	#or_filters = [["Patient", "mobile", "like", "%910%"]]
+	return frappe.get_list("Patient",
+		fields=fields,
+		#filters=[],
+		or_filters=or_filters,
+		as_list=False)
