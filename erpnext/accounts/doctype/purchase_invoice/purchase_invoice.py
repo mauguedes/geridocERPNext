@@ -1297,7 +1297,7 @@ def on_doctype_update():
 	frappe.db.add_index("Purchase Invoice", ["supplier", "is_return", "return_against"])
 
 @frappe.whitelist()
-def edit_bulk_status(names, status):
+def edit_bulk_status(names, status, mode_of_payment=None):
 	if not names and not status:
 		frappe.throw("Must provide names and status")
 	field_status = frappe.get_meta('Purchase Invoice').get_field("status")
@@ -1307,5 +1307,9 @@ def edit_bulk_status(names, status):
 		if not frappe.db.exists('Purchase Invoice', name):
 			throw(_("Could not find Purchase Invoice {0}").format(name))
 	query_names = ','.join("'{0}'".format(name) for name in names)
+	if status == 'Paid':
+		if not mode_of_payment:
+			return frappe.throw("Must provide Mode of Payment")
+		return frappe.db.sql("""UPDATE `tabPurchase Invoice` SET `status` = '{status}', `mode_of_payment` = '{mode_of_payment}', `is_paid` = 1 WHERE `name` IN ({names})""".format(status=status, mode_of_payment=mode_of_payment, names=query_names), as_list=True)
 	return frappe.db.sql("""UPDATE `tabPurchase Invoice` SET `status` = '{status}' WHERE `name` IN ({names})""".format(status=status, names=query_names), as_list=True)
 
