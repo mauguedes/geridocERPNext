@@ -443,11 +443,7 @@ def install_country_fixtures(company):
 			module_name = "erpnext.regional.{0}.setup.setup".format(frappe.scrub(company_doc.country))
 			frappe.get_attr(module_name)(company_doc, False)
 		except Exception as e:
-<<<<<<< HEAD
-			frappe.log_error(title=str(e), message=frappe.get_traceback())
-=======
 			frappe.log_error()
->>>>>>> 48b0f0da96d7ed70bbbd03299fa768c9b483ff0f
 			frappe.throw(_("Failed to setup defaults for country {0}. Please contact support@erpnext.com").format(frappe.bold(company_doc.country)))
 
 
@@ -617,8 +613,4 @@ def get_default_company_address(name, sort_key='is_primary_address', existing_ad
 	if out:
 		return sorted(out, key = functools.cmp_to_key(lambda x,y: cmp(y[1], x[1])))[0][0]
 	else:
-<<<<<<< HEAD
 		return None
-=======
-		return None
->>>>>>> 48b0f0da96d7ed70bbbd03299fa768c9b483ff0f
