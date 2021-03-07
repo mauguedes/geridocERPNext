@@ -32,7 +32,11 @@ def make_expense_claim(docname):
 	vehicle_log = frappe.get_doc("Vehicle Log", docname)
 	service_expense = sum([flt(d.expense_amount) for d in vehicle_log.service_detail])
 
+<<<<<<< HEAD
 	claim_amount = service_expense + flt(vehicle_log.price)
+=======
+	claim_amount = service_expense + (flt(vehicle_log.price) * flt(vehicle_log.fuel_qty) or 1)
+>>>>>>> 48b0f0da96d7ed70bbbd03299fa768c9b483ff0f
 	if not claim_amount:
 		frappe.throw(_("No additional expenses has been added"))
 

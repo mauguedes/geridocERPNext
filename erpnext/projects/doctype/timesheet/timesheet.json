@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "allow_import": 1,
  "autoname": "naming_series:",
  "creation": "2013-02-28 17:57:33",
@@ -77,6 +78,15 @@
    "remember_last_selected_value": 1
   },
   {
+   "fieldname": "sales_invoice",
+   "fieldtype": "Link",
+   "label": "Sales Invoice",
+   "no_copy": 1,
+   "options": "Sales Invoice",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
    "fieldname": "column_break_3",
    "fieldtype": "Column Break"
   },
@@ -96,7 +106,7 @@
    "in_standard_filter": 1,
    "label": "Status",
    "no_copy": 1,
-   "options": "Draft\nSubmitted\nBilled\nPayslip\nCompleted\nCancelled\nPurchased\nBilled and Purchased",
+   "options": "Draft\nSubmitted\nBilled\nPayslip\nCompleted\nCancelled\nPurchased and Purchased",
    "print_hide": 1
   },
   {
@@ -108,7 +118,6 @@
   {
    "fieldname": "employee",
    "fieldtype": "Link",
-   "ignore_user_permissions": 1,
    "in_standard_filter": 1,
    "label": "Employee",
    "options": "Employee"
@@ -162,6 +171,13 @@
    "fieldtype": "Section Break"
   },
   {
+   "fieldname": "time_logs",
+   "fieldtype": "Table",
+   "label": "Time Sheets",
+   "options": "Timesheet Detail",
+   "reqd": 1
+  },
+  {
    "fieldname": "working_hours",
    "fieldtype": "Section Break"
   },
@@ -199,9 +215,11 @@
    "read_only": 1
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "total_costing_amount",
    "fieldtype": "Currency",
    "label": "Total Costing Amount",
+   "print_hide": 1,
    "read_only": 1
   },
   {
@@ -337,23 +355,17 @@
    "read_only": 1
   },
   {
-   "fieldname": "sales_invoice",
+   "fieldname": "parent_project",
    "fieldtype": "Link",
-   "label": "Sales Invoice",
-   "options": "Sales Invoice"
-  },
-  {
-   "fieldname": "time_logs",
-   "fieldtype": "Table",
-   "label": "Time Sheets",
-   "options": "Timesheet Detail",
-   "reqd": 1
+   "label": "Project",
+   "options": "Project"
   }
  ],
  "icon": "fa fa-clock-o",
  "idx": 1,
  "is_submittable": 1,
- "modified": "2021-01-04 09:47:52.800560",
+ "links": [],
+ "modified": "2021-01-08 20:51:14.590080",
  "modified_by": "Administrator",
  "module": "Projects",
  "name": "Timesheet",
@@ -442,5 +454,6 @@
   }
  ],
  "sort_field": "modified",
- "sort_order": "ASC"
+ "sort_order": "ASC",
+ "title_field": "title"
 }

@@ -49,6 +49,15 @@ class Supplier(TransactionBase):
 				msgprint(_("Series is mandatory"), raise_exception=1)
 
 		validate_party_accounts(self)
+		self.validate_internal_supplier()
+
+	def validate_internal_supplier(self):
+		internal_supplier = frappe.db.get_value("Supplier",
+			{"is_internal_supplier": 1, "represents_company": self.represents_company, "name": ("!=", self.name)}, "name")
+
+		if internal_supplier:
+			frappe.throw(_("Internal Supplier for company {0} already exists").format(
+				frappe.bold(self.represents_company)))
 
 	def on_trash(self):
 		delete_contact_and_address('Supplier', self.name)
@@ -56,3 +65,25 @@ class Supplier(TransactionBase):
 	def after_rename(self, olddn, newdn, merge=False):
 		if frappe.defaults.get_global_default('supp_master_name') == 'Supplier Name':
 			frappe.db.set(self, "supplier_name", newdn)
+
+	def create_onboarding_docs(self, args):
+		company = frappe.defaults.get_defaults().get('company') or \
+			frappe.db.get_single_value('Global Defaults', 'default_company')
+
+		for i in range(1, args.get('max_count')):
+			supplier = args.get('supplier_name_' + str(i))
+			if supplier:
+				try:
+					doc = frappe.get_doc({
+						'doctype': self.doctype,
+						'supplier_name': supplier,
+						'supplier_group': _('Local'),
+						'company': company
+					}).insert()
+
+					if args.get('supplier_email_' + str(i)):
+						from erpnext.selling.doctype.customer.customer import create_contact
+						create_contact(supplier, 'Supplier',
+							doc.name, args.get('supplier_email_' + str(i)))
+				except frappe.NameError:
+					pass

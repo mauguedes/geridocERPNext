@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "allow_import": 1,
  "allow_rename": 1,
  "autoname": "field:appointment_type",
@@ -13,7 +14,10 @@
   "default_duration",
   "color",
   "house_call",
-  "in_house"
+  "in_house",
+  "billing_section",
+  "price_list",
+  "items"
  ],
  "fields": [
   {
@@ -44,7 +48,7 @@
    "fieldtype": "Int",
    "in_filter": 1,
    "in_list_view": 1,
-   "label": "Default Duration"
+   "label": "Default Duration (In Minutes)"
   },
   {
    "allow_in_quick_entry": 1,
@@ -66,9 +70,27 @@
    "fieldname": "in_house",
    "fieldtype": "Check",
    "label": "In House"
+  },
+  {
+   "fieldname": "billing_section",
+   "fieldtype": "Section Break",
+   "label": "Billing"
+  },
+  {
+   "fieldname": "price_list",
+   "fieldtype": "Link",
+   "label": "Price List",
+   "options": "Price List"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Appointment Type Service Items",
+   "options": "Appointment Type Service Item"
   }
  ],
- "modified": "2020-11-06 17:00:44.892367",
+ "links": [],
+ "modified": "2021-01-22 09:41:05.010524",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Appointment Type",

@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "allow_events_in_timeline": 1,
  "allow_import": 1,
  "allow_rename": 1,
@@ -27,7 +28,6 @@
   "supplier_group",
   "supplier_type",
   "pan",
-  "language",
   "allow_purchase_invoice_creation_without_purchase_order",
   "allow_purchase_invoice_creation_without_purchase_receipt",
   "disabled",
@@ -60,6 +60,7 @@
   "website",
   "supplier_details",
   "column_break_30",
+  "language",
   "is_frozen"
  ],
  "fields": [
@@ -78,16 +79,17 @@
    "oldfieldname": "naming_series",
    "oldfieldtype": "Select",
    "options": "SUP-.YYYY.-",
-   "reqd": 1,
    "set_only_once": 1
   },
   {
-   "allow_in_quick_entry": 1,
+   "bold": 1,
    "fieldname": "supplier_name",
    "fieldtype": "Data",
-   "in_list_view": 1,
-   "in_preview": 1,
-   "label": "Full Name",
+   "in_global_search": 1,
+   "label": "Supplier Name",
+   "no_copy": 1,
+   "oldfieldname": "supplier_name",
+   "oldfieldtype": "Data",
    "reqd": 1
   },
   {
@@ -99,7 +101,7 @@
   {
    "fieldname": "default_bank_account",
    "fieldtype": "Link",
-   "label": "Default Bank Account",
+   "label": "Default Company Bank Account",
    "options": "Bank Account"
   },
   {
@@ -137,8 +139,7 @@
    "fieldtype": "Link",
    "ignore_user_permissions": 1,
    "label": "Represents Company",
-   "options": "Company",
-   "unique": 1
+   "options": "Company"
   },
   {
    "fieldname": "image",
@@ -416,7 +417,8 @@
  "icon": "fa fa-user",
  "idx": 370,
  "image_field": "image",
- "modified": "2021-02-13 16:12:23.841652",
+ "links": [],
+ "modified": "2021-01-06 19:51:40.939087",
  "modified_by": "Administrator",
  "module": "Buying",
  "name": "Supplier",
@@ -480,5 +482,6 @@
  "show_name_in_global_search": 1,
  "sort_field": "modified",
  "sort_order": "ASC",
+ "title_field": "supplier_name",
  "track_changes": 1
 }

@@ -24,3 +24,6 @@ Hotels
 Hub Node
 Quality Management
 Communication
+Loan Management
+Payroll
+Telephony

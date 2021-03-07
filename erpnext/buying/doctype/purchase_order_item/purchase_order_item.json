@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "autoname": "hash",
  "creation": "2013-05-24 19:29:06",
  "doctype": "DocType",
@@ -17,16 +18,13 @@
   "col_break1",
   "image",
   "image_view",
-  "manufacture_details",
-  "manufacturer",
-  "column_break_14",
-  "manufacturer_part_no",
   "quantity_and_rate",
   "qty",
   "stock_uom",
   "col_break2",
   "uom",
   "conversion_factor",
+  "stock_qty",
   "sec_break1",
   "price_list_rate",
   "discount_percentage",
@@ -42,25 +40,16 @@
   "base_rate",
   "base_amount",
   "pricing_rules",
+  "stock_uom_rate",
   "is_free_item",
-  "is_fixed_asset",
   "section_break_29",
   "net_rate",
   "net_amount",
   "column_break_32",
   "base_net_rate",
   "base_net_amount",
-  "billed_amt",
-  "item_weight_details",
-  "weight_per_unit",
-  "total_weight",
-  "column_break_40",
-  "weight_uom",
   "warehouse_and_reference",
   "warehouse",
-  "delivered_by_supplier",
-  "project",
-  "project_name",
   "material_request",
   "material_request_item",
   "sales_order",
@@ -68,31 +57,44 @@
   "supplier_quotation",
   "supplier_quotation_item",
   "col_break5",
+  "delivered_by_supplier",
+  "against_blanket_order",
   "blanket_order",
   "blanket_order_rate",
   "item_group",
   "brand",
-  "bom",
-  "include_exploded_items",
   "section_break_56",
-  "stock_qty",
-  "column_break_60",
   "received_qty",
   "returned_qty",
+  "column_break_60",
+  "billed_amt",
   "accounting_details",
   "expense_account",
-  "column_break_68",
+  "manufacture_details",
+  "manufacturer",
+  "manufacturer_part_no",
+  "column_break_14",
+  "bom",
+  "include_exploded_items",
+  "item_weight_details",
+  "weight_per_unit",
+  "total_weight",
+  "column_break_40",
+  "weight_uom",
   "accounting_dimensions_section",
-  "cost_center",
+  "project",
   "dimension_col_break",
+  "cost_center",
+  "more_info_section_break",
+  "is_fixed_asset",
+  "item_tax_rate",
   "section_break_72",
-  "page_break",
-  "item_tax_rate"
+  "page_break"
  ],
  "fields": [
   {
    "bold": 1,
-   "columns": 3,
+   "columns": 2,
    "fieldname": "item_code",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -132,9 +134,10 @@
    "fieldname": "schedule_date",
    "fieldtype": "Date",
    "in_list_view": 1,
-   "label": "Reqd By Date",
+   "label": "Required By",
    "oldfieldname": "schedule_date",
    "oldfieldtype": "Date",
+   "print_hide": 1,
    "reqd": 1
   },
   {
@@ -214,15 +217,16 @@
    "print_hide": 1
   },
   {
+   "columns": 1,
    "fieldname": "uom",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "UOM",
    "oldfieldname": "uom",
    "oldfieldtype": "Link",
    "options": "UOM",
    "print_width": "100px",
-   "reqd": 1,
-   "width": "100px"
+   "reqd": 1
   },
   {
    "fieldname": "conversion_factor",
@@ -257,8 +261,7 @@
    "fieldname": "discount_amount",
    "fieldtype": "Currency",
    "label": "Discount Amount",
-   "options": "currency",
-   "print_hide_if_no_value": 1
+   "options": "currency"
   },
   {
    "fieldname": "col_break3",
@@ -343,6 +346,7 @@
   },
   {
    "default": "0",
+   "depends_on": "is_free_item",
    "fieldname": "is_free_item",
    "fieldtype": "Check",
    "label": "Is Free Item",
@@ -398,7 +402,6 @@
    "fieldname": "weight_per_unit",
    "fieldtype": "Float",
    "label": "Weight Per Unit",
-   "print_hide_if_no_value": 1,
    "read_only": 1
   },
   {
@@ -506,13 +509,15 @@
   },
   {
    "default": "0",
+   "depends_on": "delivered_by_supplier",
    "fieldname": "delivered_by_supplier",
    "fieldtype": "Check",
-   "label": "To be delivered to customer",
+   "label": "To be Delivered to Customer",
    "print_hide": 1,
    "read_only": 1
   },
   {
+   "depends_on": "eval:doc.against_blanket_order",
    "fieldname": "blanket_order",
    "fieldtype": "Link",
    "label": "Blanket Order",
@@ -520,6 +525,7 @@
    "options": "Blanket Order"
   },
   {
+   "depends_on": "eval:doc.against_blanket_order",
    "fieldname": "blanket_order_rate",
    "fieldtype": "Currency",
    "label": "Blanket Order Rate",
@@ -554,6 +560,7 @@
    "read_only": 1
   },
   {
+   "depends_on": "eval:parent.is_subcontracted == 'Yes'",
    "fieldname": "bom",
    "fieldtype": "Link",
    "label": "BOM",
@@ -570,21 +577,21 @@
   },
   {
    "fieldname": "section_break_56",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "label": "Billed, Received & Returned"
   },
   {
    "fieldname": "stock_qty",
    "fieldtype": "Float",
-   "label": "Qty as per Stock UOM",
+   "label": "Qty in Stock UOM",
    "no_copy": 1,
-   "oldfieldname": "stock_qty",
-   "oldfieldtype": "Currency",
    "print_hide": 1,
    "print_width": "100px",
    "read_only": 1,
    "width": "100px"
   },
   {
+   "depends_on": "received_qty",
    "fieldname": "received_qty",
    "fieldtype": "Float",
    "label": "Received Qty",
@@ -608,9 +615,10 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "billed_amt",
    "fieldname": "billed_amt",
    "fieldtype": "Currency",
-   "label": "Billed Amt",
+   "label": "Billed Amount",
    "no_copy": 1,
    "options": "currency",
    "print_hide": 1,
@@ -629,6 +637,7 @@
    "report_hide": 1
   },
   {
+   "collapsible": 1,
    "fieldname": "accounting_details",
    "fieldtype": "Section Break",
    "label": "Accounting Details"
@@ -639,10 +648,6 @@
    "label": "Expense Account",
    "options": "Account",
    "print_hide": 1
-  },
-  {
-   "fieldname": "column_break_68",
-   "fieldtype": "Column Break"
   },
   {
    "fieldname": "cost_center",
@@ -683,6 +688,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "collapsible": 1,
    "fieldname": "manufacture_details",
    "fieldtype": "Section Break",
    "label": "Manufacture"
@@ -704,6 +710,13 @@
   },
   {
    "default": "0",
+   "fieldname": "against_blanket_order",
+   "fieldtype": "Check",
+   "label": "Against Blanket Order"
+  },
+  {
+   "default": "0",
+   "depends_on": "is_fixed_asset",
    "fetch_from": "item_code.is_fixed_asset",
    "fieldname": "is_fixed_asset",
    "fieldtype": "Check",
@@ -711,19 +724,24 @@
    "read_only": 1
   },
   {
-   "depends_on": "project",
-   "description": "Super Descricao",
-   "fetch_from": "project.project_name",
-   "fetch_if_empty": 1,
-   "fieldname": "project_name",
-   "fieldtype": "Data",
-   "label": "Project Name",
+   "fieldname": "more_info_section_break",
+   "fieldtype": "Section Break",
+   "label": "More Information"
+  },
+  {
+   "depends_on": "eval: doc.uom != doc.stock_uom",
+   "fieldname": "stock_uom_rate",
+   "fieldtype": "Currency",
+   "label": "Rate of Stock UOM",
+   "options": "currency",
    "read_only": 1
   }
  ],
  "idx": 1,
+ "index_web_pages_for_search": 1,
  "istable": 1,
- "modified": "2020-06-25 10:42:28.176338",
+ "links": [],
+ "modified": "2021-01-30 21:44:41.816974",
  "modified_by": "Administrator",
  "module": "Buying",
  "name": "Purchase Order Item",

@@ -7,11 +7,13 @@ from __future__ import unicode_literals
 import frappe
 from frappe import _
 from frappe.custom.doctype.custom_field.custom_field import create_custom_fields
+from frappe.permissions import add_permission, update_permission_property
 from erpnext.regional.italy import fiscal_regimes, tax_exemption_reasons, mode_of_payment_codes, vat_collectability_options
 
 def setup(company=None, patch=True):
 	make_custom_fields()
 	setup_report()
+	add_permissions()
 
 def make_custom_fields(update=True):
 	invoice_item_fields = [
@@ -125,7 +127,7 @@ def make_custom_fields(update=True):
 				options="\n".join(map(lambda x: frappe.safe_decode(x, encoding='utf-8'), vat_collectability_options)),
 				fetch_from="company.vat_collectability"),
 			dict(fieldname='sb_e_invoicing_reference', label='E-Invoicing',
-				fieldtype='Section Break', insert_after='pos_total_qty', print_hide=1),
+				fieldtype='Section Break', insert_after='against_income_account', print_hide=1),
 			dict(fieldname='company_tax_id', label='Company Tax ID',
 				fieldtype='Data', insert_after='sb_e_invoicing_reference', print_hide=1, read_only=1,
 				fetch_from="company.tax_id"),
@@ -200,3 +202,21 @@ def setup_report():
 				dict(role='Accounts Manager')
 			]
 		)).insert()
+
+def add_permissions():
+	doctype = 'Import Supplier Invoice'
+	add_permission(doctype, 'All', 0)
+
+	for role in ('Accounts Manager', 'Accounts User','Purchase User', 'Auditor'):
+		add_permission(doctype, role, 0)
+		update_permission_property(doctype, role, 0, 'print', 1)
+		update_permission_property(doctype, role, 0, 'report', 1)
+
+		if role in ('Accounts Manager', 'Accounts User'):
+			update_permission_property(doctype, role, 0, 'write', 1)
+			update_permission_property(doctype, role, 0, 'create', 1)
+
+	update_permission_property(doctype, 'Accounts Manager', 0, 'delete', 1)
+	add_permission(doctype, 'Accounts Manager', 1)
+	update_permission_property(doctype, 'Accounts Manager', 1, 'write', 1)
+	update_permission_property(doctype, 'Accounts Manager', 1, 'create', 1)

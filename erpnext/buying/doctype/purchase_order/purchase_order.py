@@ -71,6 +71,15 @@ class PurchaseOrder(BuyingController):
 				"compare_fields": [["project", "="], ["item_code", "="],
 					["uom", "="], ["conversion_factor", "="]],
 				"is_child_table": True
+			},
+			"Material Request": {
+				"ref_dn_field": "material_request",
+				"compare_fields": [["company", "="]],
+			},
+			"Material Request Item": {
+				"ref_dn_field": "material_request_item",
+				"compare_fields": [["project", "="], ["item_code", "="]],
+				"is_child_table": True
 			}
 		})
 
@@ -114,8 +123,8 @@ class PurchaseOrder(BuyingController):
 		if self.is_subcontracted == "Yes":
 			for item in self.items:
 				if not item.bom:
-					frappe.throw(_("BOM is not specified for subcontracting item {0} at row {1}"\
-						.format(item.item_code, item.idx)))
+					frappe.throw(_("BOM is not specified for subcontracting item {0} at row {1}")
+						.format(item.item_code, item.idx))
 
 	def get_schedule_dates(self):
 		for d in self.get('items'):

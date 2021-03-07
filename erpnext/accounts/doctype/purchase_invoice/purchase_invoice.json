@@ -1,4 +1,5 @@
 {
+ "actions": [],
  "allow_import": 1,
  "autoname": "naming_series:",
  "creation": "2013-05-21 16:16:39",
@@ -12,23 +13,20 @@
   "supplier_name",
   "tax_id",
   "due_date",
-  "is_paid",
-  "is_return",
-  "apply_tds",
+  "tax_withholding_category",
   "column_break1",
   "company",
   "posting_date",
   "posting_time",
   "set_posting_time",
+  "is_paid",
+  "is_return",
+  "apply_tds",
   "amended_from",
   "accounting_dimensions_section",
   "cost_center",
   "dimension_col_break",
-  "sb_14",
-  "on_hold",
-  "release_date",
-  "cb_17",
-  "hold_comment",
+  "project",
   "supplier_invoice_details",
   "bill_no",
   "column_break_15",
@@ -45,6 +43,8 @@
   "col_break_address",
   "shipping_address",
   "shipping_address_display",
+  "billing_address",
+  "billing_address_display",
   "currency_and_price_list",
   "currency",
   "conversion_rate",
@@ -57,8 +57,8 @@
   "set_warehouse",
   "rejected_warehouse",
   "col_break_warehouse",
+  "set_from_warehouse",
   "is_subcontracted",
-  "supplier_warehouse",
   "items_section",
   "update_stock",
   "scan_barcode",
@@ -78,9 +78,9 @@
   "base_total",
   "base_net_total",
   "column_break_28",
+  "total_net_weight",
   "total",
   "net_total",
-  "total_net_weight",
   "taxes_section",
   "tax_category",
   "column_break_49",
@@ -132,6 +132,7 @@
   "write_off_cost_center",
   "advances_section",
   "allocate_advances_automatically",
+  "adjust_advance_taxes",
   "get_advances",
   "advances",
   "payment_schedule_section",
@@ -142,18 +143,26 @@
   "terms",
   "printing_settings",
   "letter_head",
-  "group_same_items",
-  "column_break_112",
   "select_print_heading",
+  "column_break_112",
+  "group_same_items",
   "language",
+  "sb_14",
+  "on_hold",
+  "release_date",
+  "cb_17",
+  "hold_comment",
   "more_info",
   "credit_to",
   "party_account_currency",
   "is_opening",
   "against_expense_account",
   "column_break_63",
+  "unrealized_profit_loss_account",
   "status",
   "inter_company_invoice_reference",
+  "is_internal_supplier",
+  "represents_company",
   "remarks",
   "subscription_section",
   "from_date",
@@ -180,7 +189,7 @@
    "no_copy": 1,
    "oldfieldname": "naming_series",
    "oldfieldtype": "Select",
-   "options": "ACC-PINV-.YYYY.-",
+   "options": "ACC-PINV-.YYYY.-\nACC-PINV-RET-.YYYY.-",
    "print_hide": 1,
    "reqd": 1,
    "set_only_once": 1
@@ -194,6 +203,7 @@
    "oldfieldtype": "Link",
    "options": "Supplier",
    "print_hide": 1,
+   "reqd": 1,
    "search_index": 1
   },
   {
@@ -360,6 +370,7 @@
    "fieldname": "bill_date",
    "fieldtype": "Date",
    "label": "Supplier Invoice Date",
+   "no_copy": 1,
    "oldfieldname": "bill_date",
    "oldfieldtype": "Date",
    "print_hide": 1
@@ -511,6 +522,7 @@
   },
   {
    "depends_on": "update_stock",
+   "description": "Sets 'Accepted Warehouse' in each row of the items table.",
    "fieldname": "set_warehouse",
    "fieldtype": "Link",
    "label": "Set Accepted Warehouse",
@@ -538,17 +550,6 @@
    "label": "Raw Materials Supplied",
    "options": "No\nYes",
    "print_hide": 1
-  },
-  {
-   "depends_on": "eval:doc.is_subcontracted==\"Yes\"",
-   "fieldname": "supplier_warehouse",
-   "fieldtype": "Link",
-   "label": "Supplier Warehouse",
-   "no_copy": 1,
-   "options": "Warehouse",
-   "print_hide": 1,
-   "print_width": "50px",
-   "width": "50px"
   },
   {
    "fieldname": "items_section",
@@ -864,6 +865,7 @@
    "fieldname": "base_in_words",
    "fieldtype": "Data",
    "label": "In Words (Company Currency)",
+   "length": 240,
    "oldfieldname": "in_words",
    "oldfieldtype": "Data",
    "print_hide": 1,
@@ -909,6 +911,7 @@
    "fieldname": "in_words",
    "fieldtype": "Data",
    "label": "In Words",
+   "length": 240,
    "oldfieldname": "in_words_import",
    "oldfieldtype": "Data",
    "print_hide": 1,
@@ -967,8 +970,10 @@
   {
    "fieldname": "clearance_date",
    "fieldtype": "Date",
-   "hidden": 1,
-   "label": "Clearance Date"
+   "label": "Clearance Date",
+   "no_copy": 1,
+   "print_hide": 1,
+   "read_only": 1
   },
   {
    "fieldname": "col_br_payments",
@@ -1219,14 +1224,16 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Status",
-   "options": "\nDraft\nReturn\nDebit Note Issued\nSubmitted\nPaid\nUnpaid\nOverdue\nCancelled",
+   "options": "\nDraft\nReturn\nDebit Note Issued\nSubmitted\nPaid\nUnpaid\nOverdue\nCancelled\nInternal Transfer",
    "print_hide": 1
   },
   {
    "fieldname": "inter_company_invoice_reference",
    "fieldtype": "Link",
    "label": "Inter Company Invoice Reference",
+   "no_copy": 1,
    "options": "Sales Invoice",
+   "print_hide": 1,
    "read_only": 1
   },
   {
@@ -1239,6 +1246,7 @@
    "print_hide": 1
   },
   {
+   "collapsible": 1,
    "fieldname": "subscription_section",
    "fieldtype": "Section Break",
    "label": "Subscription Section",
@@ -1329,12 +1337,83 @@
    "label": "Total Costing Amount",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "default": "0",
+   "fetch_from": "supplier.is_internal_supplier",
+   "fieldname": "is_internal_supplier",
+   "fieldtype": "Check",
+   "label": "Is Internal Supplier",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tax_withholding_category",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Tax Withholding Category",
+   "options": "Tax Withholding Category",
+   "print_hide": 1
+  },
+  {
+   "fieldname": "billing_address",
+   "fieldtype": "Link",
+   "label": "Select Billing Address",
+   "options": "Address"
+  },
+  {
+   "fieldname": "billing_address_display",
+   "fieldtype": "Small Text",
+   "label": "Billing Address",
+   "read_only": 1
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Project",
+   "options": "Project"
+  },
+  {
+   "default": "0",
+   "description": "Taxes paid while advance payment will be adjusted against this invoice",
+   "fieldname": "adjust_advance_taxes",
+   "fieldtype": "Check",
+   "label": "Adjust Advance Taxes"
+  },
+  {
+   "depends_on": "eval:doc.is_internal_supplier",
+   "description": "Unrealized Profit / Loss account for intra-company transfers",
+   "fieldname": "unrealized_profit_loss_account",
+   "fieldtype": "Link",
+   "label": "Unrealized Profit / Loss Account",
+   "options": "Account"
+  },
+  {
+   "depends_on": "eval:doc.is_internal_supplier",
+   "description": "Company which internal supplier represents",
+   "fetch_from": "supplier.represents_company",
+   "fieldname": "represents_company",
+   "fieldtype": "Link",
+   "label": "Represents Company",
+   "options": "Company"
+  },
+  {
+   "depends_on": "eval:doc.update_stock && (doc.is_subcontracted==\"Yes\" || doc.is_internal_supplier)",
+   "description": "Sets 'From Warehouse' in each row of the items table.",
+   "fieldname": "set_from_warehouse",
+   "fieldtype": "Link",
+   "label": "Set From Warehouse",
+   "no_copy": 1,
+   "options": "Warehouse",
+   "print_hide": 1,
+   "print_width": "50px",
+   "width": "50px"
   }
  ],
  "icon": "fa fa-file-text",
  "idx": 204,
  "is_submittable": 1,
- "modified": "2021-02-15 10:00:49.041217",
+ "links": [],
+ "modified": "2020-12-26 20:49:03.305063",
  "modified_by": "Administrator",
  "module": "Accounts",
  "name": "Purchase Invoice",
