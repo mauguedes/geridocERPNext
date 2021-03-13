@@ -385,7 +385,8 @@
    "read_only": 1
   }
  ],
- "modified": "2020-11-26 18:40:14.818525",
+ "index_web_pages_for_search": 1,
+ "modified": "2021-03-13 17:46:48.760549",
  "modified_by": "Administrator",
  "module": "Healthcare",
  "name": "Patient Appointment",
