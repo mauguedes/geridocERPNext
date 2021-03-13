@@ -808,7 +808,7 @@
    "fieldtype": "Read Only",
    "in_list_view": 1,
    "label": "Patient Name",
-   "options": "Patient Appointment",
+   "options": "Patient Appointment"
   },
   {
    "depends_on": "eval:parent.update_stock == 1",
