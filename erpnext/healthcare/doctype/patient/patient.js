@@ -46,7 +46,7 @@ frappe.ui.form.on('Patient', {
 			$(frm.fields_dict['age_html'].wrapper).html("");
 		}
 		if(frm.doc.dob){
-			$(frm.fields_dict['age_html'].wrapper).html("AGE : " + get_age(frm.doc.dob));
+			$(frm.fields_dict['age_html'].wrapper).html(`${__('AGE')} : ${get_age(frm.doc.dob)}`);
 		}
 	}
 });
@@ -61,7 +61,7 @@ frappe.ui.form.on("Patient", "dob", function(frm) {
 		}
 		else{
 			var age_str = get_age(frm.doc.dob);
-			$(frm.fields_dict['age_html'].wrapper).html("AGE : " + age_str);
+			$(frm.fields_dict['age_html'].wrapper).html(`${__('AGE')} : ${age_str}`);
 		}
 	}
 	else {
@@ -84,7 +84,7 @@ var get_age = function (birth) {
 	var age = new Date();
 	age.setTime(ageMS);
 	var years = age.getFullYear() - 1970;
-	return years + " Year(s) " + age.getMonth() + " Month(s) " + age.getDate() + " Day(s)";
+	return `${years} ${__('Years(s)')} ${age.getMonth()} ${__('Month(s)')} ${age.getDate()} ${__('Day(s)')}`;
 };
 
 var btn_create_vital_signs = function (frm) {

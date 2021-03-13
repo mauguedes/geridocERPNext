@@ -19,7 +19,8 @@ class QualityInspectionNotSubmittedError(frappe.ValidationError): pass
 class StockController(AccountsController):
 	def validate(self):
 		super(StockController, self).validate()
-		self.validate_inspection()
+		if not self.get('is_return'):
+			self.validate_inspection()
 		self.validate_serialized_batch()
 		self.validate_customer_provided_item()
 
@@ -93,6 +94,7 @@ class StockController(AccountsController):
 							"account": warehouse_account[sle.warehouse]["account"],
 							"against": item_row.expense_account,
 							"cost_center": item_row.cost_center,
+							"project": item_row.get("project") or self.get("project"),
 							"remarks": self.get("remarks") or "Accounting Entry for Stock",
 							"debit": flt(sle.stock_value_difference, precision),
 							"is_opening": item_row.get("is_opening") or self.get("is_opening") or "No",
@@ -103,6 +105,7 @@ class StockController(AccountsController):
 							"account": item_row.expense_account,
 							"against": warehouse_account[sle.warehouse]["account"],
 							"cost_center": item_row.cost_center,
+							"project": item_row.get("project") or self.get("project"),
 							"remarks": self.get("remarks") or "Accounting Entry for Stock",
 							"credit": flt(sle.stock_value_difference, precision),
 							"project": item_row.get("project") or self.get("project"),
@@ -224,7 +227,9 @@ class StockController(AccountsController):
 
 	def check_expense_account(self, item):
 		if not item.get("expense_account"):
-			frappe.throw(_("Expense or Difference account is mandatory for Item {0} as it impacts overall stock value").format(item.item_code))
+			msg = _("Please set an Expense Account in the Items table")
+			frappe.throw(_("Row #{0}: Expense Account not set for the Item {1}. {2}")
+				.format(item.idx, frappe.bold(item.item_code), msg), title=_("Expense Account Missing"))
 
 		else:
 			is_expense_account = frappe.db.get_value("Account",
@@ -240,7 +245,9 @@ class StockController(AccountsController):
 		for d in self.items:
 			if not d.batch_no: continue
 
-			serial_nos = [sr.name for sr in frappe.get_all("Serial No", {'batch_no': d.batch_no})]
+			serial_nos = [sr.name for sr in frappe.get_all("Serial No",
+				{'batch_no': d.batch_no, 'status': 'Inactive'})]
+
 			if serial_nos:
 				frappe.db.set_value("Serial No", { 'name': ['in', serial_nos] }, "batch_no", None)
 
@@ -294,25 +301,31 @@ class StockController(AccountsController):
 
 		return serialized_items
 
-	def get_incoming_rate_for_sales_return(self, item_code, against_document):
+	def get_incoming_rate_for_sales_return(self, item_code, against_document, against_document_no=None):
 		incoming_rate = 0.0
+		cond = ''
 		if against_document and item_code:
+			if against_document_no:
+				cond = " and voucher_detail_no = %s" %(frappe.db.escape(against_document_no))
+
 			incoming_rate = frappe.db.sql("""select abs(stock_value_difference / actual_qty)
 				from `tabStock Ledger Entry`
 				where voucher_type = %s and voucher_no = %s
-					and item_code = %s limit 1""",
+					and item_code = %s {0} limit 1""".format(cond),
 				(self.doctype, against_document, item_code))
+
 			incoming_rate = incoming_rate[0][0] if incoming_rate else 0.0
 
 		return incoming_rate
 
 	def validate_warehouse(self):
-		from erpnext.stock.utils import validate_warehouse_company
+		from erpnext.stock.utils import validate_warehouse_company, validate_disabled_warehouse
 
 		warehouses = list(set([d.warehouse for d in
 			self.get("items") if getattr(d, "warehouse", None)]))
 
 		for w in warehouses:
+			validate_disabled_warehouse(w)
 			validate_warehouse_company(w, self.company)
 
 	def update_billing_percentage(self, update_modified=True):

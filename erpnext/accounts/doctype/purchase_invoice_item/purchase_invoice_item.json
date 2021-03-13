@@ -86,6 +86,7 @@
   "item_tax_rate",
   "bom",
   "include_exploded_items",
+  "purchase_invoice_item",
   "col_break6",
   "purchase_order",
   "po_detail",
@@ -808,6 +809,15 @@
    "in_list_view": 1,
    "label": "Patient Name",
    "options": "Patient Appointment",
+  },
+  {
+   "depends_on": "eval:parent.update_stock == 1",
+   "fieldname": "purchase_invoice_item",
+   "fieldtype": "Data",
+   "ignore_user_permissions": 1,
+   "label": "Purchase Invoice Item",
+   "no_copy": 1,
+   "print_hide": 1,
    "read_only": 1
   }
  ],

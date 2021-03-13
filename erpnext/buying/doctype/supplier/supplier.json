@@ -99,7 +99,7 @@
   {
    "fieldname": "default_bank_account",
    "fieldtype": "Link",
-   "label": "Default Bank Account",
+   "label": "Default Company Bank Account",
    "options": "Bank Account"
   },
   {
